@@ -43,4 +43,24 @@ describe('objectUtils', () => {
       expect(objectUtils.equals(obj1, obj2)).toBe(false);
     });
   });
+
+  it('cloneDeep', () => {
+    const obj = {
+      a: 1,
+      b: {
+        c: 2,
+      },
+      d: [
+        'abc',
+        {
+          e: 3,
+        },
+      ],
+    };
+
+    const newObj = objectUtils.cloneDeep(obj);
+
+    expect(newObj).toEqual(obj);
+    expect(newObj).not.toBe(obj);
+  });
 });
