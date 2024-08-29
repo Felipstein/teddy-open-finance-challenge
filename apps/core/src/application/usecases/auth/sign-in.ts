@@ -1,4 +1,4 @@
-import UserNotFoundError from '@application/errors/user-not-found-error';
+import UserNotFoundErrorWithProvidedEmail from '@application/errors/user-not-found-with-provided-email-error';
 import IUsersRepository from '@application/repositories/users-repository';
 import ICryptService from '@application/services/crypt-service';
 import ITokenService from '@application/services/token-service';
@@ -28,7 +28,7 @@ export default class SignInUseCase {
 
     const user = await this.usersRepo.getByEmail(email);
     if (!user) {
-      throw new UserNotFoundError();
+      throw new UserNotFoundErrorWithProvidedEmail();
     }
 
     if (!(await this.cryptService.compare(password, user.hashedPassword))) {
