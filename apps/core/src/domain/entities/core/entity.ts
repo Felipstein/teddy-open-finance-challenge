@@ -2,10 +2,14 @@ import ID from '@domain/value-objects/id';
 import objectUtils from '@shared/utils/object-utils';
 
 export default class Entity<TProps extends Record<string, any>> {
+  protected readonly props: TProps;
+
   constructor(
     readonly id: ID,
-    protected readonly props: TProps,
-  ) {}
+    props: TProps,
+  ) {
+    this.props = objectUtils.cloneDeep(props);
+  }
 
   /**
    * Verifica se ambas as entidades possuem ainda os mesmos valores, não havendo nenhuma
