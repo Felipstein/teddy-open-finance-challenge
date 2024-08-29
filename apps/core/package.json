@@ -13,6 +13,7 @@
     "preinstall": "npx only-allow yarn"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.17.7",
     "@types/node": "^22.5.1",
