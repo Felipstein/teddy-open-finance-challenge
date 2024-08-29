@@ -7,7 +7,7 @@ export default class CoreError extends Error {
   ) {
     super(message);
 
-    this.name = `${this.name} [${this.errorCodeToString()}]`;
+    this.name = `${this.rawName} [${this.errorCodeToString()}]`;
   }
 
   errorCodeToString() {
