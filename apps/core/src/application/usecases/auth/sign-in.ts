@@ -2,6 +2,7 @@ import UserNotFoundError from '@application/errors/user-not-found-error';
 import IUsersRepository from '@application/repositories/users-repository';
 import ICryptService from '@application/services/crypt-service';
 import ITokenService from '@application/services/token-service';
+import env from 'env';
 
 import SignInError from './sign-in.errors';
 
@@ -34,7 +35,11 @@ export default class SignInUseCase {
       throw new SignInError.InvalidPasswordError();
     }
 
-    const accessToken = await this.tokenService.sign({ sub: user.id }, 'secret', '7d');
+    const accessToken = await this.tokenService.sign(
+      { sub: user.id },
+      env().ACCESS_TOKEN_SECRET_KEY,
+      env().ACCESS_TOKEN_EXPIRES_IN,
+    );
 
     return {
       userId: user.id,
