@@ -1,0 +1,15 @@
+{
+  "name": "teddy-open-finance",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=20",
+    "yarn": ">=1.22"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow yarn"
+  },
+  "repository": "https://github.com/Felipstein/teddy-open-finance-challenge.git",
+  "author": "Felipstein <luisfelipe-oliveira@outlook.com.br>",
+  "license": "MIT",
+  "private": true
+}
