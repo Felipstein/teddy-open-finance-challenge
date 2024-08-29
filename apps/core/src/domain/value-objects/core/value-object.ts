@@ -34,3 +34,5 @@ export default abstract class ValueObject<TPrimitive> {
       : this._rawValue === new (this.constructor as any)(value)._rawValue;
   }
 }
+
+export type ValueObjectPrimitive<T> = T extends ValueObject<infer TPrimitive> ? TPrimitive : never;
