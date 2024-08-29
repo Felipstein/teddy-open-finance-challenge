@@ -8,6 +8,7 @@ enum ErrorCode {
   CODE_TOO_SHORT,
   CODE_TOO_LONG,
   CODE_INVALID_CHARACTERS,
+  EXPIRED_SHORTENED_LINK,
 }
 
 export function errorCodeToString(errorCode: ErrorCode) {

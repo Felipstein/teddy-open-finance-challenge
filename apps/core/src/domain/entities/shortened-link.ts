@@ -1,6 +1,8 @@
+import DomainError from '@domain/errors/domain-error';
 import generateRandomCode from '@domain/services/generate-random-code';
 import generateRandomID from '@domain/services/generate-random-id';
 import Code from '@domain/value-objects/code';
+import ErrorCode from '@shared/error-codes';
 
 import Entity from './core/entity';
 
@@ -65,7 +67,15 @@ export default class ShortenedLink extends Entity<ShortenedLinkProps> {
     return this.props.usageCount;
   }
 
+  isExpired() {
+    return this.props.expiresIn && this.props.expiresIn <= new Date();
+  }
+
   incrementUsageCount() {
+    if (this.isExpired()) {
+      throw new DomainError(ErrorCode.EXPIRED_SHORTENED_LINK, 'Link expired');
+    }
+
     ++this.props.usageCount;
   }
 
