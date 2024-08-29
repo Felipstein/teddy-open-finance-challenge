@@ -7,13 +7,16 @@ import objectUtils from '@shared/utils/object-utils';
  * uma identificação única, são mutáveis e persistentes na aplicação.
  */
 export default class Entity<TProps extends Record<string, any>> {
+  private readonly _id: ID;
   protected readonly props: TProps;
 
-  constructor(
-    readonly id: ID,
-    props: TProps,
-  ) {
+  constructor(id: ID, props: TProps) {
+    this._id = id;
     this.props = objectUtils.cloneDeep(props);
+  }
+
+  get id() {
+    return this._id.value;
   }
 
   /**
