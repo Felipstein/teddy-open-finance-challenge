@@ -26,8 +26,18 @@ export default class ShortenedLink extends Entity<ShortenedLinkProps> {
     return this.props.code.value;
   }
 
+  set code(newCustomCode: string) {
+    this.props.code = new Code(newCustomCode);
+    this.props.updatedAt = new Date();
+  }
+
   get link() {
     return this.props.link;
+  }
+
+  set link(link: string) {
+    this.props.link = link;
+    this.props.updatedAt = new Date();
   }
 
   get createdByUserId() {
