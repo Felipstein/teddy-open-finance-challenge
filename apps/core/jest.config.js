@@ -6,6 +6,7 @@ module.exports = {
     '^.+.tsx?$': ['ts-jest', {}],
   },
   moduleNameMapper: {
+    '^@env$': '<rootDir>/src/env.ts',
     '^@application/(.*)$': '<rootDir>/src/application/$1',
     '^@domain/(.*)$': '<rootDir>/src/domain/$1',
     '^@shared/(.*)$': '<rootDir>/src/shared/$1',

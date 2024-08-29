@@ -2,7 +2,7 @@ import UserNotFoundError from '@application/errors/user-not-found-error';
 import IUsersRepository from '@application/repositories/users-repository';
 import ICryptService from '@application/services/crypt-service';
 import ITokenService from '@application/services/token-service';
-import env from 'env';
+import env from '@env';
 
 import SignInError from './sign-in.errors';
 
