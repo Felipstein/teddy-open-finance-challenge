@@ -1,5 +1,5 @@
 {
-  "editor.rulers": [80],
+  "editor.rulers": [100],
   "editor.codeActionsOnSave": {
     "source.fixAll": "always",
     "source.fixAll.eslint": "always"
