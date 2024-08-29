@@ -3,7 +3,7 @@ import IUsersRepository from '@application/repositories/users-repository';
 import ICryptService from '@application/services/crypt-service';
 import ITokenService from '@application/services/token-service';
 
-import SignInError from './errors';
+import SignInError from './sign-in.errors';
 
 type Input = {
   email: string;
