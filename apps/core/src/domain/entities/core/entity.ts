@@ -1,6 +1,11 @@
 import ID from '@domain/value-objects/id';
 import objectUtils from '@shared/utils/object-utils';
 
+/**
+ * Entidades são modelo de domínios (e também chamado aggregates) dentro do conceito de design
+ * de arquiteturas DDD (Domain-Driven Design). Diferente dos Value Objects, as entidades possuem
+ * uma identificação única, são mutáveis e persistentes na aplicação.
+ */
 export default class Entity<TProps extends Record<string, any>> {
   protected readonly props: TProps;
 

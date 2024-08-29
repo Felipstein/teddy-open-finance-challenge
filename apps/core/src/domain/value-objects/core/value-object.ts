@@ -2,8 +2,8 @@
  * ValueObject (VO) são conceitos encontrados dentro do conjunto de princípios
  * para design de softwares DDD (Domain-Driven Design).
  *
- * ValueObjects não possuem identidade e são imutáveis. São usados geralmente
- * para compor entidades do domínio, concentrando regras do domínio da aplicação.
+ * Diferente das Entidades, ValueObjects não possuem identidade e são imutáveis. São usados
+ * geralmente para compor as entidades, concentrando regras do domínio da aplicação.
  */
 export default abstract class ValueObject<TPrimitive> {
   protected readonly _rawValue: TPrimitive;
