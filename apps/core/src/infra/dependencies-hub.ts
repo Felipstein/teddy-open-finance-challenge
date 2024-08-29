@@ -53,18 +53,11 @@ function createDependenciesHub() {
 
 const dependenciesHub = createDependenciesHub();
 
-export function Inject(dependency: InjectableDependency) {
-  return (target: any, propertyKey: string) => {
-    target[propertyKey] = new Proxy(
-      {},
-      {
-        get(_, propertyKey) {
-          const injectable = dependenciesHub.resolve(dependency);
-          return (injectable as any)[propertyKey];
-        },
-      },
-    );
-  };
+export function Inject<TInjectableDependency extends InjectableDependency>(
+  dependency: TInjectableDependency,
+) {
+  return (target: any, context: ClassFieldDecoratorContext) => (initializer: any) =>
+    dependenciesHub.resolve(dependency);
 }
 
 export default dependenciesHub;
