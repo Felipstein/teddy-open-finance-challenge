@@ -1,10 +1,13 @@
 import generateRandomID from '@domain/services/generate-random-id';
+import Email from '@domain/value-objects/email';
+import Name from '@domain/value-objects/name';
+import ValueObjectsToPrimitives from '@shared/@types/value-objects-to-primitives';
 
 import Entity from './core/entity';
 
 type UserProps = {
-  name: string;
-  email: string;
+  name: Name;
+  email: Email;
   hashedPassword: string;
   createdAt: Date;
   updatedAt: Date;
@@ -13,16 +16,16 @@ type UserProps = {
 
 export default class User extends Entity<UserProps> {
   get name() {
-    return this.props.name;
+    return this.props.name.value;
   }
 
   set name(name: string) {
-    this.props.name = name;
+    this.props.name = new Name(name);
     this.props.updatedAt = new Date();
   }
 
   get email() {
-    return this.props.email;
+    return this.props.email.value;
   }
 
   get hashedPassword() {
@@ -50,12 +53,14 @@ export default class User extends Entity<UserProps> {
     this.props.lastLoginAt = new Date();
   }
 
-  static create(props: Pick<UserProps, 'name' | 'email' | 'hashedPassword'>) {
+  static create(
+    props: ValueObjectsToPrimitives<Pick<UserProps, 'name' | 'email' | 'hashedPassword'>>,
+  ) {
     const id = generateRandomID();
 
     return new User(id, {
-      name: props.name,
-      email: props.email,
+      name: new Name(props.name),
+      email: new Email(props.email),
       hashedPassword: props.hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
