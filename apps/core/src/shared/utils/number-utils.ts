@@ -14,7 +14,13 @@ function random(minOrMax?: number, max?: number) {
     minOrMax = 0;
   }
 
-  return Math.random() * (max! - minOrMax) + minOrMax;
+  const number = Math.random() * (max! - minOrMax) + minOrMax;
+
+  /**
+   * Em caso da diferença entre o mínimo e o máximo for maior ou igual a 1, o número será arredondado
+   */
+  const diff = max! - minOrMax;
+  return diff < 1 ? number : Math.floor(number);
 }
 
 const numberUtils = {
