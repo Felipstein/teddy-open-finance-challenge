@@ -2,6 +2,7 @@ import UserNotFoundWithProvidedEmailError from '@application/errors/user-not-fou
 import IUsersRepository from '@application/repositories/users-repository';
 import ICryptService from '@application/services/crypt-service';
 import ITokenService from '@application/services/token-service';
+import dependenciesHub from '@dependencies-hub';
 import generateRandomID from '@domain/services/generate-random-id';
 import env from '@env';
 
@@ -18,7 +19,13 @@ describe('SignIn Use Case', () => {
   let signIn: SignInUseCase;
 
   beforeEach(() => {
-    signIn = new SignInUseCase(usersRepo, cryptService, tokenService);
+    dependenciesHub.registryMany(
+      ['repositories.users', usersRepo],
+      ['services.crypt', cryptService],
+      ['services.token', tokenService],
+    );
+
+    signIn = new SignInUseCase();
   });
 
   it('deve realizar o login com sucesso', async () => {

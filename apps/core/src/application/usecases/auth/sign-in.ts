@@ -2,6 +2,7 @@ import UserNotFoundErrorWithProvidedEmail from '@application/errors/user-not-fou
 import IUsersRepository from '@application/repositories/users-repository';
 import ICryptService from '@application/services/crypt-service';
 import ITokenService from '@application/services/token-service';
+import { Inject } from '@dependencies-hub';
 import env from '@env';
 
 import SignInError from './sign-in.errors';
@@ -17,11 +18,12 @@ type Output = {
 };
 
 export default class SignInUseCase {
-  constructor(
-    private readonly usersRepo: IUsersRepository,
-    private readonly cryptService: ICryptService,
-    private readonly tokenService: ITokenService,
-  ) {}
+  @Inject('repositories.users')
+  private readonly usersRepo!: IUsersRepository;
+  @Inject('services.crypt')
+  private readonly cryptService!: ICryptService;
+  @Inject('services.token')
+  private readonly tokenService!: ITokenService;
 
   async execute(input: Input): Promise<Output> {
     const { email, password } = input;
