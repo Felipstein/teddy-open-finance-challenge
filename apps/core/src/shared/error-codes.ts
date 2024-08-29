@@ -4,6 +4,7 @@ enum ErrorCode {
   NAME_TOO_SHORT,
   NAME_TOO_LONG,
   NAME_INVALID_CHARACTERS,
+  INVALID_EMAIL,
 }
 
 export function errorCodeToString(errorCode: ErrorCode) {
