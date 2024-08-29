@@ -8,6 +8,10 @@
   "scripts": {
     "preinstall": "npx only-allow yarn"
   },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "repository": "https://github.com/Felipstein/teddy-open-finance-challenge.git",
   "author": "Felipstein <luisfelipe-oliveira@outlook.com.br>",
   "license": "MIT",
