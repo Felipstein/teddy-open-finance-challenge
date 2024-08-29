@@ -53,11 +53,15 @@ function createDependenciesHub() {
 
 const dependenciesHub = createDependenciesHub();
 
+export type InjectDecoratorFn<T extends InjectableDependency> = (
+  target: any,
+  context: ClassFieldDecoratorContext,
+) => (initializer: unknown) => InjectableDependencies[T];
+
 export function Inject<TInjectableDependency extends InjectableDependency>(
   dependency: TInjectableDependency,
-) {
-  return (target: any, context: ClassFieldDecoratorContext) => (initializer: any) =>
-    dependenciesHub.resolve(dependency);
+): InjectDecoratorFn<TInjectableDependency> {
+  return () => () => dependenciesHub.resolve(dependency);
 }
 
 export default dependenciesHub;
