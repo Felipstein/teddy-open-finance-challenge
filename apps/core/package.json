@@ -8,8 +8,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "cross-env NODE_ENV=test dotenv -e .env.test -- jest",
+    "test:watch": "yarn test --watch",
     "preinstall": "npx only-allow yarn"
   },
   "devDependencies": {
@@ -30,6 +30,11 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "chalk": "4.1.2",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "dotenv-cli": "^7.4.2",
+    "lodash": "^4.17.21",
+    "zod": "^3.23.8"
   }
 }
