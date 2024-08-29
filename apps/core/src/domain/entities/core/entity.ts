@@ -42,3 +42,5 @@ export default class Entity<TProps extends Record<string, any>> {
     return this.id === entity.id;
   }
 }
+
+export type EntityProps<T> = T extends Entity<infer TProps> ? TProps : never;
