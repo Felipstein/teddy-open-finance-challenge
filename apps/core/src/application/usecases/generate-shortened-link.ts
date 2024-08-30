@@ -1,10 +1,9 @@
+import CodeAlreadyTakenError from '@application/errors/code-already-taken-error';
 import UserNotFoundError from '@application/errors/user-not-found-error';
 import IShortenedLinksRepository from '@application/repositories/shortened-links-repository';
 import IUsersRepository from '@application/repositories/users-repository';
 import { Inject } from '@dependencies-hub';
 import ShortenedLink from '@domain/entities/shortened-link';
-
-import GenerateShortenedLinkError from './generate-shortened-link-errors';
 
 type Input = {
   link: string;
@@ -29,7 +28,7 @@ export default class GenerateShortenedLinkUseCase {
     if (customCode) {
       const codeAlreadyTaken = await this.shortenedLinksRepo.existsByCode(customCode);
       if (codeAlreadyTaken) {
-        throw new GenerateShortenedLinkError.CodeAlreadyTaken();
+        throw new CodeAlreadyTakenError();
       }
     }
 

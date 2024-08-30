@@ -1,3 +1,4 @@
+import CodeAlreadyTakenError from '@application/errors/code-already-taken-error';
 import UserNotFoundError from '@application/errors/user-not-found-error';
 import IShortenedLinksRepository from '@application/repositories/shortened-links-repository';
 import IUsersRepository from '@application/repositories/users-repository';
@@ -6,7 +7,6 @@ import dependenciesHub from '@dependencies-hub';
 import createMock from '../../../tests/utils/create-mock';
 
 import GenerateShortenedLinkUseCase from './generate-shortened-link';
-import GenerateShortenedLinkError from './generate-shortened-link-errors';
 
 describe('GenerateShortenedLink Use Case', () => {
   const shortenedLinksRepo: jest.Mocked<IShortenedLinksRepository> = createMock();
@@ -52,7 +52,7 @@ describe('GenerateShortenedLink Use Case', () => {
         link: 'https://localhost:3333.com',
         customCode: 'custom',
       }),
-    ).rejects.toThrow(GenerateShortenedLinkError.CodeAlreadyTaken);
+    ).rejects.toThrow(CodeAlreadyTakenError);
   });
 
   it('deve lançar uma exception caso o usuário responsável não exista', async () => {

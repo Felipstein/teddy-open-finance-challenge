@@ -18,6 +18,7 @@ enum ErrorCode {
   USER_NOT_FOUND,
   CODE_ALREADY_TAKEN,
   INVALID_LINK,
+  SHORTENED_LINK_NOT_FOUND,
 }
 
 export function errorCodeToString(errorCode: ErrorCode) {
