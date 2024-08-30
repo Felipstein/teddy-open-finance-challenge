@@ -1,3 +1,4 @@
+import IShortenedLinksRepository from '@application/repositories/shortened-links-repository';
 import IUsersRepository from '@application/repositories/users-repository';
 import ICryptService from '@application/services/crypt-service';
 import ITokenService from '@application/services/token-service';
@@ -8,6 +9,7 @@ import InfrastructureError from './errors/infrastructure-error';
 
 type InjectableDependencies = {
   'repositories.users': IUsersRepository;
+  'repositories.shortened-links': IShortenedLinksRepository;
   'services.crypt': ICryptService;
   'services.token': ITokenService;
   'usecases.authentication.sign-in': SignInUseCase;

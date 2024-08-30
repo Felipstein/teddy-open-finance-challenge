@@ -16,6 +16,7 @@ enum ErrorCode {
   EXPIRED_TOKEN,
   INVALID_TOKEN,
   USER_NOT_FOUND,
+  CODE_ALREADY_TAKEN,
 }
 
 export function errorCodeToString(errorCode: ErrorCode) {
