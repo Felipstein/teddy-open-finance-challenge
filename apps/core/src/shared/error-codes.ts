@@ -12,6 +12,7 @@ enum ErrorCode {
   EXPIRED_SHORTENED_LINK,
   USER_NOT_FOUND_BY_EMAIL,
   INVALID_PASSWORD,
+  EMAIL_ALREADY_TAKEN,
 }
 
 export function errorCodeToString(errorCode: ErrorCode) {
