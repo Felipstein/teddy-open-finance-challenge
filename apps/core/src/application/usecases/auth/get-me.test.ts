@@ -5,8 +5,8 @@ import dependenciesHub from '@dependencies-hub';
 import Email from '@domain/value-objects/email';
 import Name from '@domain/value-objects/name';
 
-import createMock from '../../../../tests-utils/create-mock';
-import generate from '../../../../tests-utils/generate-random-entities';
+import createMock from '../../../../tests/utils/create-mock';
+import generate from '../../../../tests/utils/generate-random-entities';
 
 import GetMeUseCase from './get-me';
 import GetMeError from './get-me-errors';

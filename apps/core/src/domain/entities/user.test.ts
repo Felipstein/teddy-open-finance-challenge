@@ -1,6 +1,6 @@
 import InvalidValueObjectParseError from '@domain/errors/invalid-value-object-parse-error';
 
-import { delay } from '../../../tests-utils/delay';
+import { delay } from '../../../tests/utils/delay';
 
 import User from './user';
 

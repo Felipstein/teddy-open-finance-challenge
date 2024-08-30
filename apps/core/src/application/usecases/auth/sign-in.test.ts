@@ -6,8 +6,8 @@ import dependenciesHub from '@dependencies-hub';
 import generateRandomID from '@domain/services/generate-random-id';
 import env from '@env';
 
-import createMock from '../../../../tests-utils/create-mock';
-import generate from '../../../../tests-utils/generate-random-entities';
+import createMock from '../../../../tests/utils/create-mock';
+import generate from '../../../../tests/utils/generate-random-entities';
 
 import SignInUseCase from './sign-in';
 import SignInError from './sign-in.errors';

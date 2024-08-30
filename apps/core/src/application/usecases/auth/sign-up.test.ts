@@ -4,7 +4,7 @@ import ITokenService from '@application/services/token-service';
 import dependenciesHub from '@dependencies-hub';
 import env from '@env';
 
-import createMock from '../../../../tests-utils/create-mock';
+import createMock from '../../../../tests/utils/create-mock';
 
 import SignUpUseCase from './sign-up';
 import SignUpError from './sign-up-errors';
