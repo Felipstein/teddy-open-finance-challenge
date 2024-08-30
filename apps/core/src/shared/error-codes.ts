@@ -13,6 +13,9 @@ enum ErrorCode {
   USER_NOT_FOUND_BY_EMAIL,
   INVALID_PASSWORD,
   EMAIL_ALREADY_TAKEN,
+  EXPIRED_TOKEN,
+  INVALID_TOKEN,
+  USER_NOT_FOUND,
 }
 
 export function errorCodeToString(errorCode: ErrorCode) {
