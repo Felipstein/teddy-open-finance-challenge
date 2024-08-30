@@ -7,6 +7,7 @@ export default interface IShortenedLinksRepository {
   getAllByUserId(userId: string): Promise<ShortenedLink[]>;
 
   getById(id: string): Promise<ShortenedLink | null>;
+  getByCode(code: string): Promise<ShortenedLink | null>;
 
   save(shortenedLink: ShortenedLink): Promise<void>;
 
