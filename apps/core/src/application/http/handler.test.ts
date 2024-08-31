@@ -1,10 +1,17 @@
 import createFakeRequest from '../../../tests/utils/create-fake-request';
+import createMockedResponse from '../../../tests/utils/create-mocked-response';
 import MockedHandler from '../../../tests/utils/mocked-handler';
 
 import HttpError from './error';
 import IResponse from './response';
 
 describe('Handler', () => {
+  let response: jest.Mocked<IResponse>;
+
+  beforeEach(() => {
+    response = createMockedResponse();
+  });
+
   it('deve responder uma requisição com ResponseData e o preHandle trata-la corretamente', async () => {
     const handler = new MockedHandler(
       jest.fn().mockResolvedValue({
@@ -13,16 +20,10 @@ describe('Handler', () => {
       }),
     );
 
-    // @ts-expect-error - Não há necessidade de implementar todas as funções, apenas as quais devem ser testadas.
-    const mockedResponse = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn().mockReturnThis(),
-    } as jest.Mocked<IResponse>;
+    await handler.preHandle(createFakeRequest(), response);
 
-    await handler.preHandle(createFakeRequest(), mockedResponse);
-
-    expect(mockedResponse.status).toHaveBeenCalledWith(201);
-    expect(mockedResponse.json).toHaveBeenCalledWith({ id: 'mock-id-created' });
+    expect(response.status).toHaveBeenCalledWith(201);
+    expect(response.json).toHaveBeenCalledWith({ id: 'mock-id-created' });
   });
 
   it('deve tratar uma exception e responder a requisição corretamente', async () => {
@@ -36,19 +37,11 @@ describe('Handler', () => {
       ),
     );
 
-    // @ts-expect-error - Não há necessidade de implementar todas as funções, apenas as quais devem ser testadas.
-    const mockedResponse = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn().mockReturnThis(),
-    } as jest.Mocked<IResponse>;
-
     try {
-      await handler.preHandle(createFakeRequest(), mockedResponse);
+      await handler.preHandle(createFakeRequest(), response);
     } catch {}
 
-    expect(mockedResponse.status).toHaveBeenCalledWith(404);
-    expect(mockedResponse.json).toHaveBeenCalledWith(
-      expect.objectContaining({ message: 'Not found' }),
-    );
+    expect(response.status).toHaveBeenCalledWith(404);
+    expect(response.json).toHaveBeenCalledWith(expect.objectContaining({ message: 'Not found' }));
   });
 });
