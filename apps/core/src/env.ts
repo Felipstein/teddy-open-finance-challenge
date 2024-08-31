@@ -10,6 +10,8 @@ const envVariablesSchema = z.object({
 
   ACCESS_TOKEN_SECRET_KEY: z.string(),
   ACCESS_TOKEN_EXPIRES_IN: z.string(),
+
+  RETURN_HTTP_ERROR_DETAILS: z.coerce.boolean().default(false),
 });
 
 let envParsed: z.infer<typeof envVariablesSchema>;
