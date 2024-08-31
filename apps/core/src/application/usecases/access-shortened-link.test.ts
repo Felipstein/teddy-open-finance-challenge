@@ -27,6 +27,7 @@ describe('AccessShortenedLink Use Case', () => {
     });
 
     shortenedLinksRepo.getByCode = jest.fn().mockResolvedValue(shortenedLink);
+    shortenedLinksRepo.save = jest.fn();
 
     const { linkToRedirect } = await accessShortenedLink.execute({ code: 'aZbKq7' });
 
