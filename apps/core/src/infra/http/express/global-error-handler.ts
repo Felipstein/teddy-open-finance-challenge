@@ -2,7 +2,7 @@ import HttpErrorResponse from '@application/http/error/http-error-response';
 import env from '@env';
 import loggerBuilder from '@infra/logger';
 import CoreError from '@shared/core-error';
-import ErrorCode from '@shared/error-codes';
+import ErrorCode, { errorCodeToString } from '@shared/error-codes';
 import chalk from 'chalk';
 import { NextFunction, Request, Response } from 'express';
 
@@ -29,7 +29,7 @@ export default function globalErrorHandler(
     }
 
     errorResponse = {
-      causedBy,
+      causedBy: causedBy ? errorCodeToString(causedBy) : undefined,
       message: error.message,
       internalDetails: {
         stack: error.stack,

@@ -1,7 +1,5 @@
-import ErrorCode from '@shared/error-codes';
-
 type HttpErrorResponse = {
-  causedBy?: ErrorCode;
+  causedBy?: string;
   message: string;
   details?: unknown;
   internalDetails?: {

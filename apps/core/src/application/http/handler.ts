@@ -1,7 +1,7 @@
 import InvalidValueObjectParseError from '@domain/errors/invalid-value-object-parse-error';
 import env from '@env';
 import loggerBuilder from '@infra/logger';
-import ErrorCode from '@shared/error-codes';
+import ErrorCode, { errorCodeToString } from '@shared/error-codes';
 import ValidatorError from '@shared/validator-error';
 import chalk from 'chalk';
 
@@ -121,7 +121,7 @@ function isEmptyBody(body: any) {
 
 function transformHttpErrorToResponse(error: HttpError) {
   const body: HttpErrorResponse = {
-    causedBy: error.code,
+    causedBy: errorCodeToString(error.code),
     message: error.message,
     details: error.details,
   };

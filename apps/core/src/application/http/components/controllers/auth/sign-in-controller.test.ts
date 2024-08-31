@@ -2,7 +2,7 @@ import IResponse from '@application/http/response';
 import SignInUseCase from '@application/usecases/auth/sign-in';
 import SignInError from '@application/usecases/auth/sign-in.errors';
 import dependenciesHub from '@dependencies-hub';
-import ErrorCode from '@shared/error-codes';
+import ErrorCode, { errorCodeToString } from '@shared/error-codes';
 
 import createFakeRequest from '../../../../../../tests/utils/create-fake-request';
 import createMock from '../../../../../../tests/utils/create-mock';
@@ -58,7 +58,7 @@ describe('SignInController', () => {
     expect(response.status).toHaveBeenCalledWith(400);
     expect(response.json).toHaveBeenCalledWith(
       expect.objectContaining({
-        causedBy: ErrorCode.INVALID_INPUT,
+        causedBy: errorCodeToString(ErrorCode.INVALID_INPUT),
         details: expect.any(Object),
       }),
     );
