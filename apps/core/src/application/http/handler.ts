@@ -1,4 +1,6 @@
 import env from '@env';
+import ErrorCode from '@shared/error-codes';
+import ValidatorError from '@shared/validator-error';
 
 import HttpError from './error';
 import HttpErrorResponse from './error/http-error-response';
@@ -48,20 +50,22 @@ export default abstract class Handler {
       return response.status(statusCode || 200).json(body);
     } catch (error) {
       if (error instanceof HttpError) {
-        const body: HttpErrorResponse = {
-          causedBy: error.code,
-          message: error.message,
-          details: error.details,
-        };
+        const { statusCode, body } = transformHttpErrorToResponse(error);
 
-        if (env().RETURN_HTTP_ERROR_DETAILS) {
-          body.internalDetails = {
-            causedByUserId: request.metadata.userId,
-            stack: error.stack,
-          };
-        }
+        return response.status(statusCode).json(body);
+      }
 
-        return response.status(error.statusCode).json(body);
+      if (error instanceof ValidatorError) {
+        const { statusCode, body } = transformHttpErrorToResponse(
+          new HttpError({
+            message: 'Há campos incorretos ou incompletos',
+            code: ErrorCode.INVALID_INPUT,
+            details: error.issues,
+            request,
+          }),
+        );
+
+        return response.status(statusCode).json(body);
       }
 
       /**
@@ -95,4 +99,21 @@ function isResponseInstanceResult(result: unknown): result is IResponse {
 
 function isEmptyBody(body: any) {
   return !body || Object.keys(body).length === 0;
+}
+
+function transformHttpErrorToResponse(error: HttpError) {
+  const body: HttpErrorResponse = {
+    causedBy: error.code,
+    message: error.message,
+    details: error.details,
+  };
+
+  if (env().RETURN_HTTP_ERROR_DETAILS) {
+    body.internalDetails = {
+      causedByUserId: error.request.metadata.userId,
+      stack: error.stack,
+    };
+  }
+
+  return { statusCode: error.statusCode, body };
 }
