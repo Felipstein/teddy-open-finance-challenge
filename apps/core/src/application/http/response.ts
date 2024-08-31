@@ -8,10 +8,10 @@ export default interface IResponse {
   status(statusCode: number): this;
   write(body: any): this;
 
-  sendStatus(statusCode: number): void;
-  send(body: any): void;
-  json(body: any): void;
+  sendStatus(statusCode: number): this;
+  send(body: any): this;
+  json(body: any): this;
 
-  end(): void;
-  next(): void;
+  end(): this;
+  next(): this;
 }
