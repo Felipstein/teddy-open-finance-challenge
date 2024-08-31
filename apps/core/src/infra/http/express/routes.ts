@@ -8,6 +8,7 @@ import GetShortenedLinksController from '@application/http/components/controller
 import IsAvailableCodeController from '@application/http/components/controllers/is-available-code-controller';
 import UpdateShortenedLinkController from '@application/http/components/controllers/update-shortened-link-controller';
 import InjectUserAuthenticatedMiddleware from '@application/http/components/middlewares/inject-user-authenticated-middleware';
+import RequiresAuthenticationMiddleware from '@application/http/components/middlewares/requires-authentication-middleware';
 import { Router } from 'express';
 
 import adaptHandler from './adapters/adapt-handler';
@@ -19,16 +20,32 @@ export default function createRoutes() {
 
   routes.get('/:code', adaptHandler(AccessShortenedLinkController));
 
-  routes.get('/api/me', adaptHandler(GetMeController));
+  routes.get(
+    '/api/me',
+    adaptHandler(RequiresAuthenticationMiddleware),
+    adaptHandler(GetMeController),
+  );
   routes.post('/api/auth/sign-up', adaptHandler(SignUpController));
   routes.post('/api/auth/sign-in', adaptHandler(SignInController));
 
   routes.get('/api/available/:code', adaptHandler(IsAvailableCodeController));
 
-  routes.get('/api/links', adaptHandler(GetShortenedLinksController));
+  routes.get(
+    '/api/links',
+    adaptHandler(RequiresAuthenticationMiddleware),
+    adaptHandler(GetShortenedLinksController),
+  );
   routes.post('/api/links', adaptHandler(GenerateShortenedLinkController));
-  routes.put('/api/links/:id', adaptHandler(UpdateShortenedLinkController));
-  routes.delete('/api/links/:id', adaptHandler(DeleteShortenedLinkController));
+  routes.put(
+    '/api/links/:id',
+    adaptHandler(RequiresAuthenticationMiddleware),
+    adaptHandler(UpdateShortenedLinkController),
+  );
+  routes.delete(
+    '/api/links/:id',
+    adaptHandler(RequiresAuthenticationMiddleware),
+    adaptHandler(DeleteShortenedLinkController),
+  );
 
   return routes;
 }
