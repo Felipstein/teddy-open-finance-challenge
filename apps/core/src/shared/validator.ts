@@ -7,12 +7,12 @@ type Options = {
   setEmptyStringsToNull?: boolean;
 };
 
-export type Validator = <Z extends z.ZodType>(input: any) => z.infer<Z>;
+export type Validator<Z extends z.ZodType> = (input: any) => z.infer<Z>;
 
 export default function createValidator<Z extends z.ZodType>(
   schema: Z,
   options?: Options,
-): Validator {
+): Validator<Z> {
   return (input: any) => {
     try {
       const setEmptyStringsToNull = options?.setEmptyStringsToNull ?? true;
