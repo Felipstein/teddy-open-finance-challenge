@@ -18,7 +18,13 @@ const bodyValidator = createValidator(
   z.object({
     link: z.string().optional(),
     customCode: z.string().optional(),
-    expiresIn: z.date().nullable().optional(),
+    expiresIn: z.coerce
+      .date()
+      .refine((value) => (value ? value > new Date() : true), {
+        message: 'A data precisa ser a partir de hoje',
+      })
+      .nullable()
+      .optional(),
   }),
 );
 
