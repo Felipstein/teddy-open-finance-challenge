@@ -18,3 +18,4 @@
 - Banco de dados e implementações (repositories)
 - Implementação dos serviços (token e crypt)
 - Providenciação todas as dependencies da aplicação
+- Montagem das endpoints (API REST com Maturidade 2) ligando com middlewares
