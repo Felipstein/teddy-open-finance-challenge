@@ -10,6 +10,12 @@ const envVariablesSchema = z.object({
 
   PORT: z.coerce.number().default(3333),
 
+  ORIGINS: z
+    .string()
+    .transform((value) => value.split(','))
+    .or(z.array(z.string()))
+    .default([]),
+
   ACCESS_TOKEN_SECRET_KEY: z.string(),
   ACCESS_TOKEN_EXPIRES_IN: z.string(),
 
