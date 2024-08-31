@@ -5,6 +5,7 @@ const domainConfig = {
     minCodeLength: 3,
     maxCodeLength: 6,
   },
+  minPasswordLength: 8,
 };
 
 export default domainConfig;
