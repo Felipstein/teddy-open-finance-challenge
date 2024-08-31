@@ -13,6 +13,8 @@ import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 
 import adaptHandler from './adapters/adapt-handler';
+import globalErrorHandler from './global-error-handler';
+import routes from './routes';
 
 const app = express();
 const server = http.createServer(app);
@@ -45,6 +47,9 @@ app.use(
   }),
 );
 
+app.use(routes);
+
 app.use('*', adaptHandler(FeatureNotAllowedController));
+app.use(globalErrorHandler);
 
 export default server;
