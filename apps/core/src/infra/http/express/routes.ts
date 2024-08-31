@@ -8,6 +8,7 @@ import GetShortenedLinksController from '@application/http/components/controller
 import IsAvailableCodeController from '@application/http/components/controllers/is-available-code-controller';
 import UpdateShortenedLinkController from '@application/http/components/controllers/update-shortened-link-controller';
 import InjectUserAuthenticatedMiddleware from '@application/http/components/middlewares/inject-user-authenticated-middleware';
+import IsLinkOwnerMiddleware from '@application/http/components/middlewares/is-link-owner-middleware';
 import RequiresAuthenticationMiddleware from '@application/http/components/middlewares/requires-authentication-middleware';
 import { Router } from 'express';
 
@@ -39,11 +40,13 @@ export default function createRoutes() {
   routes.put(
     '/api/links/:id',
     adaptHandler(RequiresAuthenticationMiddleware),
+    adaptHandler(IsLinkOwnerMiddleware),
     adaptHandler(UpdateShortenedLinkController),
   );
   routes.delete(
     '/api/links/:id',
     adaptHandler(RequiresAuthenticationMiddleware),
+    adaptHandler(IsLinkOwnerMiddleware),
     adaptHandler(DeleteShortenedLinkController),
   );
 

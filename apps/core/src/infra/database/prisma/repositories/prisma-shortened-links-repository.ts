@@ -43,6 +43,16 @@ export default class PrismaShortenedLinksRepository implements IShortenedLinksRe
     );
   }
 
+  async getByIdFromUser(id: string, userId: string): Promise<ShortenedLink | null> {
+    const shortenedLinkData = await this.prisma.shortenedLink.findUnique({
+      where: { id, createdByUserId: userId, deletedAt: null },
+    });
+
+    return (
+      shortenedLinkData && prismaShortenedLinkMappers.toDomain.shortenedLink(shortenedLinkData)
+    );
+  }
+
   async save(shortenedLink: ShortenedLink): Promise<void> {
     const { id } = shortenedLink;
 
