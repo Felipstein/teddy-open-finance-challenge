@@ -13,6 +13,7 @@ type Input = {
 };
 
 type Output = {
+  shortenedLinkId: string;
   code: string;
 };
 
@@ -49,6 +50,7 @@ export default class GenerateShortenedLinkUseCase {
     await this.shortenedLinksRepo.save(shortenedLink);
 
     return {
+      shortenedLinkId: shortenedLink.id,
       code: shortenedLink.code,
     };
   }

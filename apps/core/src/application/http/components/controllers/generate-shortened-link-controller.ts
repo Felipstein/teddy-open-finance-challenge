@@ -39,7 +39,7 @@ export default class GenerateShortenedLinkController extends Handler {
 
       const baseURL = `${protocol}://${host}`;
 
-      const { code } = await this.generateShortenedLink.execute({
+      const { shortenedLinkId, code } = await this.generateShortenedLink.execute({
         link,
         createdByUserId: userId,
         customCode,
@@ -50,6 +50,7 @@ export default class GenerateShortenedLinkController extends Handler {
 
       return {
         $status: 201,
+        shortenedLinkId,
         shortenedLink,
       };
     } catch (error) {
