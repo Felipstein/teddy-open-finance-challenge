@@ -1,17 +1,8 @@
+import createFakeRequest from '../../../tests/utils/create-fake-request';
+
 import HttpError from './error';
 import Handler from './handler';
-import IRequest from './request';
 import IResponse from './response';
-
-const fakeRequest: IRequest = {
-  headers: {},
-  params: {},
-  query: {},
-  body: {},
-  metadata: {
-    isAuthenticated: false,
-  },
-};
 
 class MockedHandler extends Handler {
   /**
@@ -37,7 +28,7 @@ describe('Handler', () => {
       json: jest.fn().mockReturnThis(),
     } as jest.Mocked<IResponse>;
 
-    await handler.preHandle(fakeRequest, mockedResponse);
+    await handler.preHandle(createFakeRequest(), mockedResponse);
 
     expect(mockedResponse.status).toHaveBeenCalledWith(201);
     expect(mockedResponse.json).toHaveBeenCalledWith({ id: 'mock-id-created' });
@@ -49,7 +40,7 @@ describe('Handler', () => {
         new HttpError({
           statusCode: 404,
           message: 'Not found',
-          request: fakeRequest,
+          request: createFakeRequest(),
         }),
       ),
     );
@@ -61,7 +52,7 @@ describe('Handler', () => {
     } as jest.Mocked<IResponse>;
 
     try {
-      await handler.preHandle(fakeRequest, mockedResponse);
+      await handler.preHandle(createFakeRequest(), mockedResponse);
     } catch {}
 
     expect(mockedResponse.status).toHaveBeenCalledWith(404);
