@@ -30,6 +30,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - run: npm pkg delete scripts.prepare
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
