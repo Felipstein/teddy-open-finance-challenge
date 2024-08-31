@@ -10,6 +10,7 @@ export default function createMockedResponse(fields?: Partial<jest.Mocked<IRespo
     json: fields?.json ?? jest.fn().mockReturnThis(),
     send: fields?.send ?? jest.fn().mockReturnThis(),
     write: fields?.write ?? jest.fn().mockReturnThis(),
+    redirect: fields?.redirect ?? jest.fn(),
     end: fields?.end ?? jest.fn().mockReturnThis(),
     next: fields?.next ?? jest.fn().mockReturnThis(),
   } satisfies jest.Mocked<IResponse>;
