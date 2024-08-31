@@ -15,7 +15,7 @@ export default function createValidator<Z extends z.ZodType>(
 ): Validator {
   return (input: any) => {
     try {
-      const setEmptyStringsToNull = options?.setEmptyStringsToNull ?? false;
+      const setEmptyStringsToNull = options?.setEmptyStringsToNull ?? true;
 
       const realInput = setEmptyStringsToNull ? objectUtils.mapEmptyStrings(input) : input;
 
