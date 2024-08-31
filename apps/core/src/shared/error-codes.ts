@@ -21,6 +21,7 @@ enum ErrorCode {
   INVALID_LINK,
   SHORTENED_LINK_NOT_FOUND,
   INVALID_PARSE,
+  INVALID_INPUT,
 }
 
 export function errorCodeToString(errorCode: ErrorCode) {
