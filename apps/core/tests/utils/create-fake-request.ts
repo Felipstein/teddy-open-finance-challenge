@@ -9,5 +9,7 @@ export default function createFakeRequest(fields?: Partial<IRequest>): IRequest 
       isAuthenticated: false,
     },
     body: fields?.body ?? {},
+
+    protocol: fields?.protocol ?? 'http',
   };
 }

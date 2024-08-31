@@ -8,4 +8,6 @@ export default interface IRequest {
   query: Record<string, string | string[] | number | boolean | undefined>;
   body: any;
   metadata: RequestMetadata;
+
+  protocol: string;
 }
