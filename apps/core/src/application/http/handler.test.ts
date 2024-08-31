@@ -31,8 +31,7 @@ describe('Handler', () => {
       json: jest.fn().mockReturnThis(),
     } as jest.Mocked<IResponse>;
 
-    // @ts-ignore - A propriedade "handle" é protegida, logo só é acessível por herança ou internamente.
-    await handler.handle(fakeRequest, mockedResponse);
+    await handler.preHandle(fakeRequest, mockedResponse);
 
     expect(mockedResponse.status).toHaveBeenCalledWith(201);
     expect(mockedResponse.json).toHaveBeenCalledWith({ id: 'mock-id-created' });
@@ -56,7 +55,7 @@ describe('Handler', () => {
 
     try {
       // @ts-ignore - A propriedade "handle" é protegida, logo só é acessível por herança ou internamente.
-      await handler.handle(fakeRequest, mockedResponse);
+      await handler.preHandle(fakeRequest, mockedResponse);
     } catch {}
 
     expect(mockedResponse.status).toHaveBeenCalledWith(404);
