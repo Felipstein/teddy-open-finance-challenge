@@ -1,3 +1,4 @@
+import InvalidValueObjectParseError from '@domain/errors/invalid-value-object-parse-error';
 import env from '@env';
 import ErrorCode from '@shared/error-codes';
 import ValidatorError from '@shared/validator-error';
@@ -61,6 +62,18 @@ export default abstract class Handler {
             message: 'Há campos incorretos ou incompletos',
             code: ErrorCode.INVALID_INPUT,
             details: error.issues,
+            request,
+          }),
+        );
+
+        return response.status(statusCode).json(body);
+      }
+
+      if (error instanceof InvalidValueObjectParseError) {
+        const { statusCode, body } = transformHttpErrorToResponse(
+          new HttpError({
+            message: 'Há campos incorretos ou incompletos',
+            code: error.code,
             request,
           }),
         );
