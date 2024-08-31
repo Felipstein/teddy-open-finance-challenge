@@ -1,5 +1,6 @@
 import IResponse from '@application/http/response';
 import SignInUseCase from '@application/usecases/auth/sign-in';
+import SignInError from '@application/usecases/auth/sign-in.errors';
 import dependenciesHub from '@dependencies-hub';
 import ErrorCode from '@shared/error-codes';
 
@@ -61,5 +62,19 @@ describe('SignInController', () => {
         details: expect.any(Object),
       }),
     );
+  });
+
+  it('deve executar com erro de credenciais inválidas', async () => {
+    signInUseCase.execute = jest.fn().mockRejectedValue(new SignInError.InvalidPasswordError());
+
+    const request = createFakeRequest({
+      body: {
+        email: 'johndoe@example.com',
+        password: 'Str0ngP4ssw0rd!',
+      },
+    });
+    await signInController.preHandle(request, response);
+
+    expect(response.status).toHaveBeenCalledWith(401);
   });
 });
