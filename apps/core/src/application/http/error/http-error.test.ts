@@ -22,7 +22,7 @@ describe('HttpError', () => {
       request: fakeRequest,
     });
 
-    expect(httpError.name).toBe('BadRequestError');
+    expect(httpError.name).toBe('NotFoundError');
     expect(httpError.code).toBe(ErrorCode.UNKNOWN_ERROR);
   });
 });
