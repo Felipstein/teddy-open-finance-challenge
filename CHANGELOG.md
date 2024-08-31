@@ -13,3 +13,8 @@
 - Primeira release da aplicação (implementação do servidor HTTP, sistema de autenticação/autorização e controllers)
 - Controllers adicionados: Validação de token, login, cadastro, acesso ao link encurtado, remoção de link encurtado, listagem de links gerados, edição de link gerado e geração de link encurtado
 - Controller especial adicionado: verificação se um código já está sendo usado para afins de melhoria na UX de aplicações web e mobile.
+- Implementação do servidor
+- Sistema de logs
+- Banco de dados e implementações (repositories)
+- Implementação dos serviços (token e crypt)
+- Providenciação todas as dependencies da aplicação
