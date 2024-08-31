@@ -1,8 +1,8 @@
-import type { IncomingHttpHeaders } from 'node:http';
+import type { OutgoingHttpHeaders } from 'node:http';
 
 export default interface IResponse {
   statusCode: number;
-  headers: IncomingHttpHeaders & Record<string, string | undefined>;
+  headers: OutgoingHttpHeaders & Record<string, string | string[] | number | undefined>;
   body: any;
 
   status(statusCode: number): this;
