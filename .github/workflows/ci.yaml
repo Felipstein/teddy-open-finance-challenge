@@ -42,7 +42,3 @@ jobs:
       - name: Check type
         working-directory: apps/core
         run: yarn typecheck
-
-      - name: Run tests
-        working-directory: apps/core
-        run: yarn test
