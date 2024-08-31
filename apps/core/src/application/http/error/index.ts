@@ -5,7 +5,7 @@ import IRequest from '../request';
 import HttpErrorCode from './http-error-codes';
 
 type Builder = {
-  statusCode: HttpErrorCode;
+  statusCode?: HttpErrorCode;
   code?: ErrorCode;
   message: string;
   details?: unknown;
@@ -23,11 +23,11 @@ export default class HttpError extends Error {
     super(builder.message);
 
     this.code = builder.code ?? ErrorCode.UNKNOWN_ERROR;
-    this.statusCode = builder.statusCode;
+    this.statusCode = builder.statusCode ?? 400;
     this.details = builder.details;
     this.request = builder.request;
 
-    this.name = createErrorName(builder.statusCode);
+    this.name = createErrorName(builder.statusCode ?? 400);
   }
 }
 
