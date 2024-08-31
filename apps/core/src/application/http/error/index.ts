@@ -8,6 +8,7 @@ type Builder = {
   statusCode: HttpErrorCode;
   code?: ErrorCode;
   message: string;
+  details?: unknown;
   request: IRequest;
 };
 
@@ -16,12 +17,14 @@ export default class HttpError extends Error {
 
   readonly statusCode: number;
   readonly request: IRequest;
+  readonly details?: unknown;
 
   constructor(builder: Builder) {
     super(builder.message);
 
     this.code = builder.code ?? ErrorCode.UNKNOWN_ERROR;
     this.statusCode = builder.statusCode;
+    this.details = builder.details;
     this.request = builder.request;
 
     this.name = createErrorName(builder.statusCode);
