@@ -8,21 +8,21 @@ export default class PrismaUsersRepository implements IUsersRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
   async existsById(id: string): Promise<boolean> {
-    return (await this.prisma.user.count({ where: { id } })) > 0;
+    return (await this.prisma.user.count({ where: { id, deletedAt: null } })) > 0;
   }
 
   async existsByEmail(email: string): Promise<boolean> {
-    return (await this.prisma.user.count({ where: { email } })) > 0;
+    return (await this.prisma.user.count({ where: { email, deletedAt: null } })) > 0;
   }
 
   async getById(id: string): Promise<User | null> {
-    const userData = await this.prisma.user.findUnique({ where: { id } });
+    const userData = await this.prisma.user.findUnique({ where: { id, deletedAt: null } });
 
     return userData && prismaUserMappers.toDomain.user(userData);
   }
 
   async getByEmail(email: string): Promise<User | null> {
-    const userData = await this.prisma.user.findUnique({ where: { email } });
+    const userData = await this.prisma.user.findUnique({ where: { email, deletedAt: null } });
 
     return userData && prismaUserMappers.toDomain.user(userData);
   }
@@ -31,7 +31,7 @@ export default class PrismaUsersRepository implements IUsersRepository {
     const { id } = user;
 
     await this.prisma.user.upsert({
-      where: { id },
+      where: { id, deletedAt: null },
       create: prismaUserMappers.toPrisma.user(user),
       update: {
         name: user.name,

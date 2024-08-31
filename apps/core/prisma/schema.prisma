@@ -16,6 +16,8 @@ model User {
   updatedAt      DateTime  @updatedAt @map("updated_at")
   lastLoginAt    DateTime? @map("last_login_at")
 
+  deletedAt DateTime? @map("deleted_at")
+
   shortenedLinks ShortenedLink[]
 
   @@map("users")
@@ -30,6 +32,8 @@ model ShortenedLink {
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
   expiresIn       DateTime? @map("expires_in")
+
+  deletedAt DateTime? @map("deleted_at")
 
   createdByUser User? @relation(fields: [createdByUserId], references: [id])
 }

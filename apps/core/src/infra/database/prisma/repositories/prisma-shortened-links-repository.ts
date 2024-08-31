@@ -8,23 +8,25 @@ export default class PrismaShortenedLinksRepository implements IShortenedLinksRe
   constructor(private readonly prisma: PrismaClient) {}
 
   async existsById(id: string): Promise<boolean> {
-    return (await this.prisma.shortenedLink.count({ where: { id } })) > 0;
+    return (await this.prisma.shortenedLink.count({ where: { id, deletedAt: null } })) > 0;
   }
 
   async existsByCode(code: string): Promise<boolean> {
-    return (await this.prisma.shortenedLink.count({ where: { code } })) > 0;
+    return (await this.prisma.shortenedLink.count({ where: { code, deletedAt: null } })) > 0;
   }
 
   async getAllByUserId(userId: string): Promise<ShortenedLink[]> {
     const shortenedLinksData = await this.prisma.shortenedLink.findMany({
-      where: { createdByUserId: userId },
+      where: { createdByUserId: userId, deletedAt: null },
     });
 
     return shortenedLinksData.map(prismaShortenedLinkMappers.toDomain.shortenedLink);
   }
 
   async getById(id: string): Promise<ShortenedLink | null> {
-    const shortenedLinkData = await this.prisma.shortenedLink.findUnique({ where: { id } });
+    const shortenedLinkData = await this.prisma.shortenedLink.findUnique({
+      where: { id, deletedAt: null },
+    });
 
     return (
       shortenedLinkData && prismaShortenedLinkMappers.toDomain.shortenedLink(shortenedLinkData)
@@ -32,7 +34,9 @@ export default class PrismaShortenedLinksRepository implements IShortenedLinksRe
   }
 
   async getByCode(code: string): Promise<ShortenedLink | null> {
-    const shortenedLinkData = await this.prisma.shortenedLink.findUnique({ where: { code } });
+    const shortenedLinkData = await this.prisma.shortenedLink.findUnique({
+      where: { code, deletedAt: null },
+    });
 
     return (
       shortenedLinkData && prismaShortenedLinkMappers.toDomain.shortenedLink(shortenedLinkData)
@@ -43,7 +47,7 @@ export default class PrismaShortenedLinksRepository implements IShortenedLinksRe
     const { id } = shortenedLink;
 
     await this.prisma.shortenedLink.upsert({
-      where: { id },
+      where: { id, deletedAt: null },
       create: prismaShortenedLinkMappers.toPrisma.shortenedLink(shortenedLink),
       update: {
         code: shortenedLink.code,
@@ -56,6 +60,11 @@ export default class PrismaShortenedLinksRepository implements IShortenedLinksRe
   }
 
   async delete(id: string): Promise<void> {
-    await this.prisma.shortenedLink.delete({ where: { id } });
+    await this.prisma.shortenedLink.update({
+      where: { id, deletedAt: null },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
   }
 }
