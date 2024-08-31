@@ -1,0 +1,3 @@
+{
+  "apps/core/**/*.ts": "yarn workspace @link-shortener/core run lint:fix"
+}
