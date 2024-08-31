@@ -20,6 +20,8 @@ const envVariablesSchema = z.object({
   ACCESS_TOKEN_EXPIRES_IN: z.string(),
 
   RETURN_HTTP_ERROR_DETAILS: z.coerce.boolean().default(false),
+
+  LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error', 'fatal']).default('info'),
 });
 
 let envParsed: z.infer<typeof envVariablesSchema>;

@@ -65,11 +65,16 @@ function deleteUndefined<T extends object>(obj: T) {
   return newObj;
 }
 
+function isEmpty(obj: object) {
+  return Object.keys(obj).length === 0;
+}
+
 const objectUtils = {
   equals,
   cloneDeep,
   mapEmptyStrings,
   deleteUndefined,
+  isEmpty,
 };
 
 export default objectUtils;
