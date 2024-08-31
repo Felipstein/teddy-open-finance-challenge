@@ -12,6 +12,8 @@ export default interface IResponse {
   send(body: any): this;
   json(body: any): this;
 
+  redirect(url: string): this;
+
   end(): this;
   next(): this;
 }
