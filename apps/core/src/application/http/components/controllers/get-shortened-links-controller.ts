@@ -13,7 +13,11 @@ export default class GetShortenedLinksController extends Handler {
     try {
       const userId = request.metadata.userId!;
 
-      return await this.getShortenedLinks.execute({ userId });
+      const shortenedLinks = await this.getShortenedLinks.execute({ userId });
+
+      return {
+        shortenedLinks,
+      };
     } catch (error) {
       if (error instanceof UserNotFoundError) {
         throw new HttpError({
