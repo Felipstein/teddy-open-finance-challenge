@@ -10,7 +10,9 @@ type AuthenticationData =
       userId?: undefined;
     };
 
-type CommonMetadata = AuthenticationData;
+type CommonMetadata = AuthenticationData & {
+  noAuthReason?: 'invalid-token' | 'expired-token';
+};
 
 type RequestMetadata = CommonMetadata & Record<string | number | symbol, any>;
 

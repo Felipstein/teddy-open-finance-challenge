@@ -5,6 +5,7 @@ import IResponse from '@application/http/response';
 import IUsersRepository from '@application/repositories/users-repository';
 import ITokenService from '@application/services/token-service';
 import { Inject } from '@dependencies-hub';
+import env from '@env';
 
 export default class InjectUserAuthenticatedMiddleware extends Handler {
   @Inject('services.token') private readonly tokenService!: ITokenService;
@@ -27,15 +28,29 @@ export default class InjectUserAuthenticatedMiddleware extends Handler {
       return response.next();
     }
 
-    const decoded = await this.tokenService.decode(token);
-    if (!decoded?.sub || typeof decoded.sub !== 'string') {
+    const { status, payload } = await this.tokenService.verifySafe(
+      token,
+      env().ACCESS_TOKEN_SECRET_KEY,
+    );
+
+    if (status === 'invalid') {
+      request.metadata.noAuthReason = 'invalid-token';
+      return response.next();
+    }
+
+    if (status === 'expired') {
+      request.metadata.noAuthReason = 'expired-token';
+      return response.next();
+    }
+
+    if (!payload?.sub || typeof payload.sub !== 'string') {
       throw new HttpError({
         message: 'Sua sessão está corrompida',
         request,
       });
     }
 
-    const expectedUserId = decoded.sub;
+    const expectedUserId = payload.sub;
     const userExists = await this.usersRepo.existsById(expectedUserId);
     if (!userExists) {
       throw new HttpError({
