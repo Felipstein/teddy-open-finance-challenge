@@ -12,20 +12,22 @@ import { Router } from 'express';
 
 import adaptHandler from './adapters/adapt-handler';
 
-const routes = Router();
+export default function createRoutes() {
+  const routes = Router();
 
-routes.use(adaptHandler(InjectUserAuthenticatedMiddleware));
+  routes.use(adaptHandler(InjectUserAuthenticatedMiddleware));
 
-routes.post('/me', adaptHandler(GetMeController));
-routes.post('/auth/sign-up', adaptHandler(SignUpController));
-routes.post('/auth/sign-in', adaptHandler(SignInController));
+  routes.post('/me', adaptHandler(GetMeController));
+  routes.post('/auth/sign-up', adaptHandler(SignUpController));
+  routes.post('/auth/sign-in', adaptHandler(SignInController));
 
-routes.get('/:code', adaptHandler(AccessShortenedLinkController));
-routes.get('/available/:code', adaptHandler(IsAvailableCodeController));
+  routes.get('/:code', adaptHandler(AccessShortenedLinkController));
+  routes.get('/available/:code', adaptHandler(IsAvailableCodeController));
 
-routes.get('/links', adaptHandler(GetShortenedLinksController));
-routes.post('/links', adaptHandler(GenerateShortenedLinkController));
-routes.put('/links/:id', adaptHandler(UpdateShortenedLinkController));
-routes.delete('/links/:id', adaptHandler(DeleteShortenedLinkController));
+  routes.get('/links', adaptHandler(GetShortenedLinksController));
+  routes.post('/links', adaptHandler(GenerateShortenedLinkController));
+  routes.put('/links/:id', adaptHandler(UpdateShortenedLinkController));
+  routes.delete('/links/:id', adaptHandler(DeleteShortenedLinkController));
 
-export default routes;
+  return routes;
+}

@@ -14,42 +14,53 @@ import helmet from 'helmet';
 
 import adaptHandler from './adapters/adapt-handler';
 import globalErrorHandler from './global-error-handler';
-import routes from './routes';
+import createRoutes from './routes';
 
-const app = express();
-const server = http.createServer(app);
+export default function createServer() {
+  const app = express();
+  const server = http.createServer(app);
 
-app.use(express.json());
-app.use(compression());
-app.use(helmet());
+  app.use(express.json());
+  app.use(compression());
+  app.use(helmet());
 
-app.use(
-  cors({
-    origin(requestOrigin, callback) {
-      if (!requestOrigin) {
-        return callback(null, true);
-      }
+  app.use(
+    cors({
+      origin(requestOrigin, callback) {
+        if (!requestOrigin) {
+          return callback(null, true);
+        }
 
-      if (env().ORIGINS.includes(requestOrigin)) {
-        return callback(null, true);
-      }
+        if (env().ORIGINS.includes(requestOrigin)) {
+          return callback(null, true);
+        }
 
-      return callback(new Error(`Origin ${requestOrigin} blocked by CORS`), false);
-    },
-  }),
-);
+        return callback(new Error(`Origin ${requestOrigin} blocked by CORS`), false);
+      },
+    }),
+  );
 
-app.use(
-  rateLimit({
-    limit: infraConfig.rateLimit,
-    windowMs: infraConfig.rateCooldown,
-    handler: adaptHandler(TooManyRequestsController),
-  }),
-);
+  app.use(
+    rateLimit({
+      limit: infraConfig.rateLimit,
+      windowMs: infraConfig.rateCooldown,
+      handler: adaptHandler(TooManyRequestsController),
+    }),
+  );
 
-app.use(routes);
+  app.use(createRoutes());
 
-app.use('*', adaptHandler(FeatureNotAllowedController));
-app.use(globalErrorHandler);
+  app.use('*', adaptHandler(FeatureNotAllowedController));
+  app.use(globalErrorHandler);
 
-export default server;
+  function listen(port: number) {
+    return new Promise<void>((resolve) => {
+      server.listen(port, resolve);
+    });
+  }
+
+  return {
+    ...server,
+    listen,
+  };
+}
