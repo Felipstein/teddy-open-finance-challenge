@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 
+import chalk from 'chalk';
+
 import HttpErrorResponse from '@application/http/error/http-error-response';
 import env from '@env';
 import loggerBuilder from '@infra/logger';
 import CoreError from '@shared/core-error';
 import ErrorCode, { errorCodeToString } from '@shared/error-codes';
-import chalk from 'chalk';
 import { NextFunction, Request, Response } from 'express';
 
 const logger = loggerBuilder.context('GLOBAL-ERROR-HANDLER', 'red');

@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 
+import chalk from 'chalk';
+
 import InvalidValueObjectParseError from '@domain/errors/invalid-value-object-parse-error';
 import env from '@env';
 import loggerBuilder from '@infra/logger';
 import ErrorCode, { errorCodeToString } from '@shared/error-codes';
 import ValidatorError from '@shared/validator-error';
-import chalk from 'chalk';
 
 import HttpError from './error';
 import HttpErrorResponse from './error/http-error-response';

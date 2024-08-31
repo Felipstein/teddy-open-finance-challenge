@@ -2,9 +2,10 @@
 
 import 'dotenv/config';
 
-import transformStrToBoolean from '@shared/transform-str-to-boolean';
 import chalk from 'chalk';
 import { z, ZodError } from 'zod';
+
+import transformStrToBoolean from '@shared/transform-str-to-boolean';
 
 const envVariablesSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']),

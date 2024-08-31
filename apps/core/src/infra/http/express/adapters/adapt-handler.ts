@@ -1,7 +1,8 @@
+import chalk from 'chalk';
+
 import Handler from '@application/http/handler';
 import RequestMetadata from '@application/http/request-metadata';
 import loggerBuilder from '@infra/logger';
-import chalk from 'chalk';
 import { Handler as ExpressHandler } from 'express';
 
 import ExpressRequest from '../request';

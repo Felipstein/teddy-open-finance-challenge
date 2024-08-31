@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import HttpError from '@application/http/error';
 import Handler from '@application/http/handler';
 import IRequest from '@application/http/request';
@@ -5,7 +7,6 @@ import IResponse from '@application/http/response';
 import IShortenedLinksRepository from '@application/repositories/shortened-links-repository';
 import { Inject } from '@dependencies-hub';
 import createValidator from '@shared/validator';
-import { z } from 'zod';
 
 const paramsValidator = createValidator(
   z.object({

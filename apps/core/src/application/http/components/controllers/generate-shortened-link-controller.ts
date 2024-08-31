@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import CodeAlreadyTakenError from '@application/errors/code-already-taken-error';
 import UserNotFoundError from '@application/errors/user-not-found-error';
 import HttpError from '@application/http/error';
@@ -6,7 +8,6 @@ import IRequest from '@application/http/request';
 import GenerateShortenedLinkUseCase from '@application/usecases/generate-shortened-link';
 import { Inject } from '@dependencies-hub';
 import createValidator from '@shared/validator';
-import { z } from 'zod';
 
 const bodyValidator = createValidator(
   z.object({

@@ -2,11 +2,12 @@
 
 import util from 'node:util';
 
+import chalk from 'chalk';
+import { format, transports } from 'winston';
+
 import env from '@env';
 import dateUtils from '@shared/utils/date-utils';
 import objectUtils from '@shared/utils/object-utils';
-import chalk from 'chalk';
-import { format, transports } from 'winston';
 
 type PrintfFunction = typeof format.printf;
 type PrintfCallback = Parameters<PrintfFunction>[0];

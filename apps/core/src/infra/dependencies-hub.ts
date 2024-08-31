@@ -1,3 +1,5 @@
+import chalk from 'chalk';
+
 import IShortenedLinksRepository from '@application/repositories/shortened-links-repository';
 import IUsersRepository from '@application/repositories/users-repository';
 import ICryptService from '@application/services/crypt-service';
@@ -11,7 +13,6 @@ import GenerateShortenedLinkUseCase from '@application/usecases/generate-shorten
 import GetShortenedLinksUseCase from '@application/usecases/get-shortened-links';
 import UpdateShortenedLinkUseCase from '@application/usecases/update-shortened-link';
 import ErrorCode from '@shared/error-codes';
-import chalk from 'chalk';
 
 import InfrastructureError from './errors/infrastructure-error';
 import loggerBuilder from './logger';

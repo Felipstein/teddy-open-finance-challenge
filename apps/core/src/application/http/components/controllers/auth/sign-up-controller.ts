@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import HttpError from '@application/http/error';
 import Handler from '@application/http/handler';
 import IRequest from '@application/http/request';
@@ -7,7 +9,6 @@ import { Inject } from '@dependencies-hub';
 import isStrongPassword, { WeakPasswordReason } from '@domain/services/is-strong-password';
 import createValidator from '@shared/validator';
 import ValidatorError from '@shared/validator-error';
-import { z } from 'zod';
 
 const bodyValidator = createValidator(
   z.object({

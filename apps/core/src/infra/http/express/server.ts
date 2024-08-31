@@ -2,15 +2,16 @@ import 'express-async-errors';
 
 import http from 'node:http';
 
+import compression from 'compression';
+import cors from 'cors';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+
 import FeatureNotAllowedController from '@application/http/components/controllers/feature-not-allowed-controller';
 import TooManyRequestsController from '@application/http/components/controllers/too-many-requests-controller';
 import infraConfig from '@config/infra-config';
 import env from '@env';
-import compression from 'compression';
-import cors from 'cors';
 import express from 'express';
-import rateLimit from 'express-rate-limit';
-import helmet from 'helmet';
 
 import adaptHandler from './adapters/adapt-handler';
 import globalErrorHandler from './global-error-handler';

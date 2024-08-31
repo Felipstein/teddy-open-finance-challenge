@@ -1,7 +1,8 @@
+import jwt from 'jsonwebtoken';
+
 import ExpiredTokenError from '@application/errors/expired-token-error';
 import InvalidTokenError from '@application/errors/invalid-token-error';
 import ITokenService, { Decoded, Obj, VerifyStatus } from '@application/services/token-service';
-import jwt from 'jsonwebtoken';
 
 export default class JWTTokenService implements ITokenService {
   async sign<P extends Obj>(

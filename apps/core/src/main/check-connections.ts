@@ -1,6 +1,7 @@
+import chalk from 'chalk';
+
 import prisma from '@infra/database/prisma';
 import loggerBuilder from '@infra/logger';
-import chalk from 'chalk';
 
 const logger = loggerBuilder.context('CONNECTIONS-CHECKUP', 'magenta');
 

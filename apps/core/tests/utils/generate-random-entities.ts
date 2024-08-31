@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker';
+
 import { EntityProps } from '@domain/entities/core/entity';
 import ShortenedLink from '@domain/entities/shortened-link';
 import User from '@domain/entities/user';
@@ -6,7 +8,6 @@ import generateRandomID from '@domain/services/generate-random-id';
 import Email from '@domain/value-objects/email';
 import ID from '@domain/value-objects/id';
 import Name from '@domain/value-objects/name';
-import { faker } from '@faker-js/faker';
 import numberUtils from '@shared/utils/number-utils';
 
 function randomUser(fields?: Partial<EntityProps<User>> & { id?: string }) {

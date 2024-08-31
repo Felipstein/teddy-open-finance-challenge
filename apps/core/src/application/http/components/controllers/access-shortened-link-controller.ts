@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import ShortenedLinkNotFoundError from '@application/errors/shortened-link-not-found-error';
 import HttpError from '@application/http/error';
 import Handler from '@application/http/handler';
@@ -7,7 +9,6 @@ import AccessShortenedLinkUseCase from '@application/usecases/access-shortened-l
 import AccessShortenedLinkError from '@application/usecases/access-shortened-link-errors';
 import { Inject } from '@dependencies-hub';
 import createValidator from '@shared/validator';
-import { z } from 'zod';
 
 const paramsValidator = createValidator(
   z.object({

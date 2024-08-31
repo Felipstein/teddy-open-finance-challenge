@@ -1,8 +1,9 @@
+import chalk from 'chalk';
+
 import ShortenedLinkNotFoundError from '@application/errors/shortened-link-not-found-error';
 import IShortenedLinksRepository from '@application/repositories/shortened-links-repository';
 import { Inject } from '@dependencies-hub';
 import loggerBuilder from '@infra/logger';
-import chalk from 'chalk';
 
 import AccessShortenedLinkError from './access-shortened-link-errors';
 

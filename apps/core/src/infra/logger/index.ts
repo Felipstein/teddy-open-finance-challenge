@@ -1,9 +1,10 @@
 /* eslint-disable no-nested-ternary */
 
-import env from '@env';
 import chalk, { Chalk } from 'chalk';
 import { clone } from 'lodash';
 import winston from 'winston';
+
+import env from '@env';
 
 import { consoleTransport } from './console';
 

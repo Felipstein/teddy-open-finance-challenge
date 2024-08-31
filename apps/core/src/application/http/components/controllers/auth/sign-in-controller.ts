@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import UserNotFoundWithProvidedEmailError from '@application/errors/user-not-found-with-provided-email-error';
 import HttpError from '@application/http/error';
 import Handler from '@application/http/handler';
@@ -6,7 +8,6 @@ import SignInUseCase from '@application/usecases/auth/sign-in';
 import SignInError from '@application/usecases/auth/sign-in.errors';
 import { Inject } from '@dependencies-hub';
 import createValidator from '@shared/validator';
-import { z } from 'zod';
 
 const bodyValidator = createValidator(
   z.object({

@@ -1,6 +1,7 @@
+import { PrismaClient } from '@prisma/client';
+
 import IUsersRepository from '@application/repositories/users-repository';
 import User from '@domain/entities/user';
-import { PrismaClient } from '@prisma/client';
 
 import prismaUserMappers from './mappers/prisma-user-mappers';
 

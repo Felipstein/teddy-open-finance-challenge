@@ -1,6 +1,7 @@
+import { PrismaClient } from '@prisma/client';
+
 import IShortenedLinksRepository from '@application/repositories/shortened-links-repository';
 import ShortenedLink from '@domain/entities/shortened-link';
-import { PrismaClient } from '@prisma/client';
 
 import prismaShortenedLinkMappers from './mappers/prisma-shortened-link-mappers';
 
