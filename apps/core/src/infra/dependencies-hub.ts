@@ -11,8 +11,12 @@ import GenerateShortenedLinkUseCase from '@application/usecases/generate-shorten
 import GetShortenedLinksUseCase from '@application/usecases/get-shortened-links';
 import UpdateShortenedLinkUseCase from '@application/usecases/update-shortened-link';
 import ErrorCode from '@shared/error-codes';
+import chalk from 'chalk';
 
 import InfrastructureError from './errors/infrastructure-error';
+import loggerBuilder from './logger';
+
+const logger = loggerBuilder.context('DEPENDENCIES-HUB', 'cyan');
 
 type InjectableDependencies = {
   'repositories.users': IUsersRepository;
@@ -39,6 +43,8 @@ function createDependenciesHub() {
     injectable: InjectableDependencies[T],
   ) {
     dependencies.set(dependency, injectable);
+
+    logger.debug(chalk.magenta.italic(`Dependency ${dependency} registered`));
   }
 
   function registryMany(

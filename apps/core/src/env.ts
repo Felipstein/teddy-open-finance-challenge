@@ -57,5 +57,5 @@ export default function env() {
 }
 
 if (process.env.NODE_ENV !== 'test') {
-  console.info('Environment variables parsed and loaded\n');
+  console.info(chalk.gray('Environment variables parsed and loaded\n'));
 }
