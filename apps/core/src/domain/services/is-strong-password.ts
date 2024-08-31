@@ -1,16 +1,18 @@
 import domainConfig from '@config/domain-config';
 
+export type WeakPasswordReason =
+  | 'requires-min-length'
+  | 'requires-number'
+  | 'requires-letter'
+  | 'requires-special-char';
+
 type Status =
   | {
       strong: true;
     }
   | {
       strong: false;
-      reason:
-        | 'requires-min-length'
-        | 'requires-number'
-        | 'requires-letter'
-        | 'requires-special-char';
+      reason: WeakPasswordReason;
     };
 
 export default function isStrongPassword(password: string): Status {
