@@ -23,3 +23,4 @@
 - Implementação de pipeline de CI (Continuous Integration) para checagem de lint, typecheck e testes
 - Implementação do lint-staged para arrumar erros de lints
 - Implementação do commit-lint para evitar enviar commits sem padrão
+- Lançamento oficial da release 0.1.0
