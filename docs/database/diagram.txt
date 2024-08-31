@@ -1,0 +1,20 @@
+Table users {
+  id uuid [pk, not null]
+  name varchar [not null]
+  email varchar [unique, not null]
+  hashedPassword varchar [not null]
+  created_at timestamp [default: `now()`, not null]
+  updated_at timestamp [default: `now()`, not null]
+  last_login_at timestamp
+}
+
+Table shortened_links {
+  id uuid [pk, not null]
+  code varchar [unique, not null]
+  link varchar [not null]
+  created_by_user_id uuid [ref: > users.id, not null]
+  usage_count integer [default: 0, not null]
+  created_at timestamp [default: `now()`, not null]
+  updated_at timestamp [default: `now()`, not null]
+  expires_in timestamp
+}
