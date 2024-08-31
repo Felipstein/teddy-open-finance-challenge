@@ -37,6 +37,8 @@ export default class SignInUseCase {
       throw new SignInError.InvalidPasswordError();
     }
 
+    user.login();
+
     const accessToken = await this.tokenService.sign(
       { sub: user.id },
       env().ACCESS_TOKEN_SECRET_KEY,
