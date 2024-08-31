@@ -20,6 +20,7 @@ enum ErrorCode {
   CODE_ALREADY_TAKEN,
   INVALID_LINK,
   SHORTENED_LINK_NOT_FOUND,
+  INVALID_PARSE,
 }
 
 export function errorCodeToString(errorCode: ErrorCode) {
