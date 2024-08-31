@@ -2,7 +2,14 @@ import IShortenedLinksRepository from '@application/repositories/shortened-links
 import IUsersRepository from '@application/repositories/users-repository';
 import ICryptService from '@application/services/crypt-service';
 import ITokenService from '@application/services/token-service';
+import AccessShortenedLinkUseCase from '@application/usecases/access-shortened-link';
+import GetMeUseCase from '@application/usecases/auth/get-me';
 import SignInUseCase from '@application/usecases/auth/sign-in';
+import SignUpUseCase from '@application/usecases/auth/sign-up';
+import DeleteShortenedLinkUseCase from '@application/usecases/delete-shortened-link';
+import GenerateShortenedLinkUseCase from '@application/usecases/generate-shortened-link';
+import GetShortenedLinksUseCase from '@application/usecases/get-shortened-links';
+import UpdateShortenedLinkUseCase from '@application/usecases/update-shortened-link';
 import ErrorCode from '@shared/error-codes';
 
 import InfrastructureError from './errors/infrastructure-error';
@@ -12,7 +19,14 @@ type InjectableDependencies = {
   'repositories.shortened-links': IShortenedLinksRepository;
   'services.crypt': ICryptService;
   'services.token': ITokenService;
+  'usecases.authentication.get-me': GetMeUseCase;
   'usecases.authentication.sign-in': SignInUseCase;
+  'usecases.authentication.sign-up': SignUpUseCase;
+  'usecases.access-shortened-link': AccessShortenedLinkUseCase;
+  'usecases.delete-shortened-link': DeleteShortenedLinkUseCase;
+  'usecases.generate-shortened-link': GenerateShortenedLinkUseCase;
+  'usecases.get-shortened-link': GetShortenedLinksUseCase;
+  'usecases.update-shortened-link': UpdateShortenedLinkUseCase;
 };
 
 type InjectableDependency = keyof InjectableDependencies;
