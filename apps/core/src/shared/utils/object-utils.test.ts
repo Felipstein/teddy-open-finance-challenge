@@ -63,4 +63,35 @@ describe('objectUtils', () => {
     expect(newObj).toEqual(obj);
     expect(newObj).not.toBe(obj);
   });
+
+  it('mapEmptyStrings', () => {
+    const obj = {
+      firstName: 'John',
+      lastName: '',
+      email: 'johndoe@example.com',
+      phone: '',
+      social: {
+        twitter: '',
+        facebook: 'face',
+      },
+    };
+
+    expect(objectUtils.mapEmptyStrings(obj)).toEqual({
+      firstName: 'John',
+      lastName: null,
+      email: 'johndoe@example.com',
+      phone: null,
+      social: {
+        twitter: null,
+        facebook: 'face',
+      },
+    });
+    expect(objectUtils.mapEmptyStrings(obj, 'undefined')).toEqual({
+      firstName: 'John',
+      email: 'johndoe@example.com',
+      social: {
+        facebook: 'face',
+      },
+    });
+  });
 });
