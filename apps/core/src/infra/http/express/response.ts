@@ -41,8 +41,8 @@ export default class ExpressResponse implements IResponse {
     return this;
   }
 
-  redirect(url: string): this {
-    this.rawResponse.redirect(url);
+  redirect(url: string, statusCode = 301): this {
+    this.rawResponse.redirect(statusCode, url);
     return this;
   }
 

@@ -12,7 +12,7 @@ export default interface IResponse {
   send(body: any): this;
   json(body: any): this;
 
-  redirect(url: string): this;
+  redirect(url: string, statusCode?: number): this;
 
   end(): this;
   next(): this;
