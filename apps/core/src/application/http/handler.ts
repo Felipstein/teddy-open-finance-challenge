@@ -1,7 +1,9 @@
 import InvalidValueObjectParseError from '@domain/errors/invalid-value-object-parse-error';
 import env from '@env';
+import loggerBuilder from '@infra/logger';
 import ErrorCode from '@shared/error-codes';
 import ValidatorError from '@shared/validator-error';
+import chalk from 'chalk';
 
 import HttpError from './error';
 import HttpErrorResponse from './error/http-error-response';
@@ -51,33 +53,36 @@ export default abstract class Handler {
       return response.status(statusCode || 200).json(body);
     } catch (error) {
       if (error instanceof HttpError) {
-        const { statusCode, body } = transformHttpErrorToResponse(error);
+        logError(error, this.constructor.name);
 
+        const { statusCode, body } = transformHttpErrorToResponse(error);
         return response.status(statusCode).json(body);
       }
 
       if (error instanceof ValidatorError) {
-        const { statusCode, body } = transformHttpErrorToResponse(
-          new HttpError({
-            message: 'Há campos incorretos ou incompletos',
-            code: ErrorCode.INVALID_INPUT,
-            details: error.issues,
-            request,
-          }),
-        );
+        const httpError = new HttpError({
+          message: 'Há campos incorretos ou incompletos',
+          code: ErrorCode.INVALID_INPUT,
+          details: error.issues,
+          request,
+        });
 
+        logError(httpError, this.constructor.name);
+
+        const { statusCode, body } = transformHttpErrorToResponse(httpError);
         return response.status(statusCode).json(body);
       }
 
       if (error instanceof InvalidValueObjectParseError) {
-        const { statusCode, body } = transformHttpErrorToResponse(
-          new HttpError({
-            message: 'Há campos incorretos ou incompletos',
-            code: error.code,
-            request,
-          }),
-        );
+        const httpError = new HttpError({
+          message: 'Há campos incorretos ou incompletos',
+          code: error.code,
+          request,
+        });
 
+        logError(httpError, this.constructor.name);
+
+        const { statusCode, body } = transformHttpErrorToResponse(httpError);
         return response.status(statusCode).json(body);
       }
 
@@ -104,7 +109,7 @@ function isResponseInstanceResult(result: unknown): result is IResponse {
   return (
     !!result &&
     typeof result === 'object' &&
-    'body' in result &&
+    'status' in result &&
     'json' in result &&
     'send' in result
   );
@@ -129,4 +134,20 @@ function transformHttpErrorToResponse(error: HttpError) {
   }
 
   return { statusCode: error.statusCode, body };
+}
+
+function logError(error: HttpError, handlerName: string) {
+  if (!env().LOG_400_HTTP_ERRORS) {
+    return;
+  }
+
+  const logger = loggerBuilder.context(`HANDLER/${handlerName}`, 'blue');
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { request, ...prettyError } = error;
+
+  logger.warn(chalk.yellow('##########################################'));
+  logger.warn(chalk.yellow(`An client error occurred in handler ${handlerName}:`));
+  logger.warn(prettyError);
+  logger.warn(chalk.yellow('##########################################'));
 }

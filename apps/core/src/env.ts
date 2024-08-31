@@ -2,6 +2,7 @@
 
 import 'dotenv/config';
 
+import transformStrToBoolean from '@shared/transform-str-to-boolean';
 import chalk from 'chalk';
 import { z, ZodError } from 'zod';
 
@@ -22,6 +23,7 @@ const envVariablesSchema = z.object({
   RETURN_HTTP_ERROR_DETAILS: z.coerce.boolean().default(false),
 
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error', 'fatal']).default('info'),
+  LOG_400_HTTP_ERRORS: transformStrToBoolean.default(false),
 });
 
 let envParsed: z.infer<typeof envVariablesSchema>;
