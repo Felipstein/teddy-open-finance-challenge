@@ -139,7 +139,7 @@ function transformHttpErrorToResponse(error: HttpError) {
 }
 
 function logError(error: HttpError, handlerName: string) {
-  if (!env().LOG_400_HTTP_ERRORS) {
+  if (!env().LOG_400_HTTP_ERRORS || env().NODE_ENV === 'test') {
     return;
   }
 
