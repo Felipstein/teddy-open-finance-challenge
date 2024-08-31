@@ -75,15 +75,18 @@ function createDependenciesHub() {
 
 const dependenciesHub = createDependenciesHub();
 
-export type InjectDecoratorFn<T extends InjectableDependency> = (
-  target: any,
-  context: ClassFieldDecoratorContext,
-) => (initializer: unknown) => InjectableDependencies[T];
-
-export function Inject<TInjectableDependency extends InjectableDependency>(
-  dependency: TInjectableDependency,
-): InjectDecoratorFn<TInjectableDependency> {
-  return () => () => dependenciesHub.resolve(dependency);
+export function Inject(dependency: InjectableDependency) {
+  return (target: any, propertyKey: string) => {
+    target[propertyKey] = new Proxy(
+      {},
+      {
+        get(_, propertyKey) {
+          const injectable = dependenciesHub.resolve(dependency);
+          return (injectable as any)[propertyKey];
+        },
+      },
+    );
+  };
 }
 
 export default dependenciesHub;
