@@ -1,5 +1,3 @@
-import createMock from '../../../tests/utils/create-mock';
-
 import HttpError from './error';
 import Handler from './handler';
 import IRequest from './request';
@@ -15,15 +13,23 @@ const fakeRequest: IRequest = {
   },
 };
 
-describe('Handler', () => {
-  const handler: jest.Mocked<Handler> = createMock();
+class MockedHandler extends Handler {
+  /**
+   * Crie um mock do handle do jeito que for necessário para executar os testes.
+   */
+  constructor(override handle: Handler['handle']) {
+    super();
+  }
+}
 
+describe('Handler', () => {
   it('deve responder uma requisição com ResponseData e o preHandle trata-la corretamente', async () => {
-    // @ts-ignore - A propriedade "handle" é protegida, logo só é acessível por herança ou internamente.
-    handler.handle = jest.fn().mockResolvedValue({
-      $status: 201,
-      id: 'mock-id-created',
-    });
+    const handler = new MockedHandler(
+      jest.fn().mockResolvedValue({
+        $status: 201,
+        id: 'mock-id-created',
+      }),
+    );
 
     // @ts-expect-error - Não há necessidade de implementar todas as funções, apenas as quais devem ser testadas.
     const mockedResponse = {
@@ -38,13 +44,14 @@ describe('Handler', () => {
   });
 
   it('deve tratar uma exception e responder a requisição corretamente', async () => {
-    // @ts-ignore - A propriedade "handle" é protegida, logo só é acessível por herança ou internamente.
-    handler.handle = jest.fn().mockRejectedValue(
-      new HttpError({
-        statusCode: 404,
-        message: 'Not found',
-        request: fakeRequest,
-      }),
+    const handler = new MockedHandler(
+      jest.fn().mockRejectedValue(
+        new HttpError({
+          statusCode: 404,
+          message: 'Not found',
+          request: fakeRequest,
+        }),
+      ),
     );
 
     // @ts-expect-error - Não há necessidade de implementar todas as funções, apenas as quais devem ser testadas.
@@ -54,7 +61,6 @@ describe('Handler', () => {
     } as jest.Mocked<IResponse>;
 
     try {
-      // @ts-ignore - A propriedade "handle" é protegida, logo só é acessível por herança ou internamente.
       await handler.preHandle(fakeRequest, mockedResponse);
     } catch {}
 
