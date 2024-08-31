@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: teddy-open-finance-database
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: teddy_open_finance
+    ports:
+      - "5432:5432"
+    volumes:
+      - teddy_open_finance_database:/var/lib/postgresql/data
+
+volumes:
+  teddy_open_finance_database:
