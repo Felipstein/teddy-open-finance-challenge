@@ -11,6 +11,9 @@
     "dev": "cross-env NODE_ENV=development tsx watch src",
     "test": "cross-env NODE_ENV=test dotenv -e .env.test -- jest",
     "test:watch": "yarn test --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint --ext .ts .",
+    "lint:fix": "eslint --ext .ts . --fix",
     "preinstall": "npx only-allow yarn"
   },
   "devDependencies": {

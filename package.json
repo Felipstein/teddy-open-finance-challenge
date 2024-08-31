@@ -2,7 +2,8 @@
   "name": "link-shortener",
   "version": "0.1.0",
   "scripts": {
-    "preinstall": "npx only-allow yarn"
+    "preinstall": "npx only-allow yarn",
+    "prepare": "husky"
   },
   "workspaces": [
     "apps/*",
