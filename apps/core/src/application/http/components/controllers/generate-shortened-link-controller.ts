@@ -25,6 +25,20 @@ export default class GenerateShortenedLinkController extends Handler {
       const { link, customCode, expiresIn } = bodyValidator(request.body);
       const { userId } = request.metadata;
 
+      const { protocol } = request;
+      const { host } = request.headers;
+
+      if (!host) {
+        throw new HttpError({
+          statusCode: 400,
+          message:
+            'Há um campo faltando nos cabeçalhos da requisição enviada para nossos servidores, por favor, tente novamente. Caso o erro persistir, entre em contato com o suporte',
+          request,
+        });
+      }
+
+      const baseURL = `${protocol}://${host}`;
+
       const { code } = await this.generateShortenedLink.execute({
         link,
         createdByUserId: userId,
@@ -32,9 +46,11 @@ export default class GenerateShortenedLinkController extends Handler {
         expiresIn,
       });
 
+      const shortenedLink = `${baseURL}/${code}`;
+
       return {
         $status: 201,
-        code,
+        shortenedLink,
       };
     } catch (error) {
       if (error instanceof CodeAlreadyTakenError) {
