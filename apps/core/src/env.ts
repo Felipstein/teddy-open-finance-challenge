@@ -8,6 +8,8 @@ import { z, ZodError } from 'zod';
 const envVariablesSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']),
 
+  PORT: z.coerce.number().default(3333),
+
   ACCESS_TOKEN_SECRET_KEY: z.string(),
   ACCESS_TOKEN_EXPIRES_IN: z.string(),
 
