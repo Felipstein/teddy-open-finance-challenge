@@ -9,7 +9,7 @@ type Input = {
   link: string;
   createdByUserId?: string;
   customCode?: string;
-  expiresIn?: Date;
+  expiresIn?: Date | null;
 };
 
 type Output = {
