@@ -23,4 +23,10 @@
 - Implementação de pipeline de CI (Continuous Integration) para checagem de lint, typecheck e testes
 - Implementação do lint-staged para arrumar erros de lints
 - Implementação do commit-lint para evitar enviar commits sem padrão
+- Script para rodar o build e inicializar a aplicação em modo prod
 - Lançamento oficial da release 0.1.0
+
+# 0.1.2
+## 31-08-2024
+- Correção nos mappers do ORM Prisma: omitido o campo `deletedAt`
+- Documentação com swagger da aplicação apps/core (disponível na URL `/docs`)

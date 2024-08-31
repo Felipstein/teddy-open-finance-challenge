@@ -11,6 +11,7 @@ import FeatureNotAllowedController from '@application/http/components/controller
 import TooManyRequestsController from '@application/http/components/controllers/too-many-requests-controller';
 import infraConfig from '@config/infra-config';
 import env from '@env';
+import { setupSwagger } from '@swagger';
 import express from 'express';
 
 import adaptHandler from './adapters/adapt-handler';
@@ -20,6 +21,8 @@ import createRoutes from './routes';
 export default function createServer() {
   const app = express();
   const server = http.createServer(app);
+
+  setupSwagger(app);
 
   app.use(express.json());
   app.use(compression());

@@ -14,6 +14,7 @@ module.exports = {
     '^@dependencies-hub$': '<rootDir>/src/infra/dependencies-hub.ts',
     '^@infra/(.*)$': '<rootDir>/src/infra/$1',
     '^@main/(.*)$': '<rootDir>/src/main/$1',
+    '^@swagger$': '<rootDir>/src/swagger.ts',
   },
   clearMocks: true,
   resetMocks: true,
