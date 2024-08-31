@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import HttpErrorResponse from '@application/http/error/http-error-response';
 import env from '@env';
 import loggerBuilder from '@infra/logger';
@@ -37,12 +39,12 @@ export default function globalErrorHandler(
     };
   }
 
-  logger.error(chalk.red('#############################'));
   logger.error(
     chalk.red(`An unknown error occurred in the request ${request.method} ${request.url}:`),
   );
-  logger.error(error);
-  logger.error(chalk.red('#############################'));
+  console.error(chalk.red('#############################'));
+  console.error(error);
+  console.error(chalk.red('#############################'));
 
   return response.status(500).json(errorResponse);
 }

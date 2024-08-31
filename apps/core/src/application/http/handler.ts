@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import InvalidValueObjectParseError from '@domain/errors/invalid-value-object-parse-error';
 import env from '@env';
 import loggerBuilder from '@infra/logger';
@@ -146,8 +148,8 @@ function logError(error: HttpError, handlerName: string) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { request, ...prettyError } = error;
 
-  logger.warn(chalk.yellow('##########################################'));
   logger.warn(chalk.yellow(`An client error occurred in handler ${handlerName}:`));
-  logger.warn(prettyError);
-  logger.warn(chalk.yellow('##########################################'));
+  console.warn(chalk.yellow('##########################################'));
+  console.warn(prettyError);
+  console.warn(chalk.yellow('##########################################'));
 }
