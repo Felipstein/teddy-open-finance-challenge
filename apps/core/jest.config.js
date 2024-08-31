@@ -13,6 +13,7 @@ module.exports = {
     '^@config/(.*)$': '<rootDir>/src/config/$1',
     '^@dependencies-hub$': '<rootDir>/src/infra/dependencies-hub.ts',
     '^@infra/(.*)$': '<rootDir>/src/infra/$1',
+    '^@main/(.*)$': '<rootDir>/src/main/$1',
   },
   clearMocks: true,
   resetMocks: true,
