@@ -9,6 +9,9 @@ import { z, ZodError } from 'zod';
 const envVariablesSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']),
 
+  DATABASE_URL: z.string(),
+  PRISMA_LOGS: transformStrToBoolean.default(false),
+
   PORT: z.coerce.number().default(3333),
 
   ORIGINS: z
