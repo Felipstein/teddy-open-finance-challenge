@@ -19,7 +19,7 @@ const toDomain = {
 };
 
 const toPrisma = {
-  shortenedLink(domainShortenedLink: ShortenedLink): Prisma.ShortenedLink {
+  shortenedLink(domainShortenedLink: ShortenedLink): Omit<Prisma.ShortenedLink, 'deletedAt'> {
     return {
       id: domainShortenedLink.id,
       code: domainShortenedLink.code,

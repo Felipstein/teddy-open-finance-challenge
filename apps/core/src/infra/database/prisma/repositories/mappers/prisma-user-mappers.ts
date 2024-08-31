@@ -19,7 +19,7 @@ const toDomain = {
 };
 
 const toPrisma = {
-  user(domainUser: User): Prisma.User {
+  user(domainUser: User): Omit<Prisma.User, 'deletedAt'> {
     return {
       id: domainUser.id,
       name: domainUser.name,
