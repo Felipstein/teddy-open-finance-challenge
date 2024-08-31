@@ -1,3 +1,5 @@
+import ShortenedLinkNotFoundError from '@application/errors/shortened-link-not-found-error';
+import HttpError from '@application/http/error';
 import Handler from '@application/http/handler';
 import IRequest from '@application/http/request';
 import DeleteShortenedLinkUseCase from '@application/usecases/delete-shortened-link';
@@ -16,8 +18,20 @@ export default class DeleteShortenedLinkController extends Handler {
   private readonly deleteShortenedLink!: DeleteShortenedLinkUseCase;
 
   protected override async handle(request: IRequest) {
-    const { id } = paramsValidator(request.params);
+    try {
+      const { id } = paramsValidator(request.params);
 
-    await this.deleteShortenedLink.execute({ shortenedLinkId: id });
+      await this.deleteShortenedLink.execute({ shortenedLinkId: id });
+    } catch (error) {
+      if (error instanceof ShortenedLinkNotFoundError) {
+        throw new HttpError({
+          statusCode: 404,
+          message: 'Link não encontrado',
+          request,
+        });
+      }
+
+      throw error;
+    }
   }
 }

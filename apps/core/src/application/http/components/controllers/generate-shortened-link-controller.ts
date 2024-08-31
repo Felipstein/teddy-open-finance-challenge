@@ -1,3 +1,6 @@
+import CodeAlreadyTakenError from '@application/errors/code-already-taken-error';
+import UserNotFoundError from '@application/errors/user-not-found-error';
+import HttpError from '@application/http/error';
 import Handler from '@application/http/handler';
 import IRequest from '@application/http/request';
 import GenerateShortenedLinkUseCase from '@application/usecases/generate-shortened-link';
@@ -18,19 +21,40 @@ export default class GenerateShortenedLinkController extends Handler {
   private readonly generateShortenedLink!: GenerateShortenedLinkUseCase;
 
   protected override async handle(request: IRequest) {
-    const { link, customCode, expiresIn } = bodyValidator(request.body);
-    const { userId } = request.metadata;
+    try {
+      const { link, customCode, expiresIn } = bodyValidator(request.body);
+      const { userId } = request.metadata;
 
-    const { code } = await this.generateShortenedLink.execute({
-      link,
-      createdByUserId: userId,
-      customCode,
-      expiresIn,
-    });
+      const { code } = await this.generateShortenedLink.execute({
+        link,
+        createdByUserId: userId,
+        customCode,
+        expiresIn,
+      });
 
-    return {
-      $status: 201,
-      code,
-    };
+      return {
+        $status: 201,
+        code,
+      };
+    } catch (error) {
+      if (error instanceof CodeAlreadyTakenError) {
+        throw new HttpError({
+          statusCode: 409,
+          message: 'Código já em uso',
+          request,
+        });
+      }
+
+      if (error instanceof UserNotFoundError) {
+        throw new HttpError({
+          statusCode: 404,
+          message:
+            'Seu cadastro não existe mais. Se você acha que isso é um erro, entre em contato com o suporte',
+          request,
+        });
+      }
+
+      throw error;
+    }
   }
 }

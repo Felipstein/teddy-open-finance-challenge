@@ -1,3 +1,6 @@
+import CodeAlreadyTakenError from '@application/errors/code-already-taken-error';
+import ShortenedLinkNotFoundError from '@application/errors/shortened-link-not-found-error';
+import HttpError from '@application/http/error';
 import Handler from '@application/http/handler';
 import IRequest from '@application/http/request';
 import UpdateShortenedLinkUseCase from '@application/usecases/update-shortened-link';
@@ -24,9 +27,29 @@ export default class UpdateShortenedLinkController extends Handler {
   private readonly updateShortenedLink!: UpdateShortenedLinkUseCase;
 
   protected override async handle(request: IRequest) {
-    const { id } = paramsValidator(request.params);
-    const { link, customCode, expiresIn } = bodyValidator(request.body);
+    try {
+      const { id } = paramsValidator(request.params);
+      const { link, customCode, expiresIn } = bodyValidator(request.body);
 
-    await this.updateShortenedLink.execute({ shortenedLinkId: id, link, customCode, expiresIn });
+      await this.updateShortenedLink.execute({ shortenedLinkId: id, link, customCode, expiresIn });
+    } catch (error) {
+      if (error instanceof ShortenedLinkNotFoundError) {
+        throw new HttpError({
+          statusCode: 404,
+          message: 'Link não encontrado',
+          request,
+        });
+      }
+
+      if (error instanceof CodeAlreadyTakenError) {
+        throw new HttpError({
+          statusCode: 409,
+          message: 'Esse código já está em uso',
+          request,
+        });
+      }
+
+      throw error;
+    }
   }
 }
