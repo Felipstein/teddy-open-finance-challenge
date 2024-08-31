@@ -1,17 +1,8 @@
 import createFakeRequest from '../../../tests/utils/create-fake-request';
+import MockedHandler from '../../../tests/utils/mocked-handler';
 
 import HttpError from './error';
-import Handler from './handler';
 import IResponse from './response';
-
-class MockedHandler extends Handler {
-  /**
-   * Crie um mock do handle do jeito que for necessário para executar os testes.
-   */
-  constructor(override handle: Handler['handle']) {
-    super();
-  }
-}
 
 describe('Handler', () => {
   it('deve responder uma requisição com ResponseData e o preHandle trata-la corretamente', async () => {
