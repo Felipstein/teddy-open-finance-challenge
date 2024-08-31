@@ -20,3 +20,6 @@
 - Providenciação todas as dependencies da aplicação
 - Montagem das endpoints (API REST com Maturidade 2) ligando com middlewares
 - Implementação da camada de autenticação e autorização/permissão nas endpoints
+- Implementação de pipeline de CI (Continuous Integration) para checagem de lint, typecheck e testes
+- Implementação do lint-staged para arrumar erros de lints
+- Implementação do commit-lint para evitar enviar commits sem padrão
