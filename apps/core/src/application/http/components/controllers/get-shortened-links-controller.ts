@@ -13,7 +13,7 @@ export default class GetShortenedLinksController extends Handler {
     try {
       const userId = request.metadata.userId!;
 
-      return this.getShortenedLinks.execute({ userId });
+      return await this.getShortenedLinks.execute({ userId });
     } catch (error) {
       if (error instanceof UserNotFoundError) {
         throw new HttpError({
@@ -23,8 +23,6 @@ export default class GetShortenedLinksController extends Handler {
           request,
         });
       }
-
-      throw error;
     }
   }
 }
