@@ -25,7 +25,7 @@ type InjectableDependencies = {
   'usecases.access-shortened-link': AccessShortenedLinkUseCase;
   'usecases.delete-shortened-link': DeleteShortenedLinkUseCase;
   'usecases.generate-shortened-link': GenerateShortenedLinkUseCase;
-  'usecases.get-shortened-link': GetShortenedLinksUseCase;
+  'usecases.get-shortened-links': GetShortenedLinksUseCase;
   'usecases.update-shortened-link': UpdateShortenedLinkUseCase;
 };
 
