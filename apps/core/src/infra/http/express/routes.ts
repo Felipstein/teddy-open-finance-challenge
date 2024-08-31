@@ -17,17 +17,18 @@ export default function createRoutes() {
 
   routes.use(adaptHandler(InjectUserAuthenticatedMiddleware));
 
-  routes.post('/me', adaptHandler(GetMeController));
-  routes.post('/auth/sign-up', adaptHandler(SignUpController));
-  routes.post('/auth/sign-in', adaptHandler(SignInController));
-
   routes.get('/:code', adaptHandler(AccessShortenedLinkController));
-  routes.get('/available/:code', adaptHandler(IsAvailableCodeController));
 
-  routes.get('/links', adaptHandler(GetShortenedLinksController));
-  routes.post('/links', adaptHandler(GenerateShortenedLinkController));
-  routes.put('/links/:id', adaptHandler(UpdateShortenedLinkController));
-  routes.delete('/links/:id', adaptHandler(DeleteShortenedLinkController));
+  routes.get('/api/me', adaptHandler(GetMeController));
+  routes.post('/api/auth/sign-up', adaptHandler(SignUpController));
+  routes.post('/api/auth/sign-in', adaptHandler(SignInController));
+
+  routes.get('/api/available/:code', adaptHandler(IsAvailableCodeController));
+
+  routes.get('/api/links', adaptHandler(GetShortenedLinksController));
+  routes.post('/api/links', adaptHandler(GenerateShortenedLinkController));
+  routes.put('/api/links/:id', adaptHandler(UpdateShortenedLinkController));
+  routes.delete('/api/links/:id', adaptHandler(DeleteShortenedLinkController));
 
   return routes;
 }
